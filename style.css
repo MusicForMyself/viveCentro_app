@@ -1,0 +1,295 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+
+ @font-face {
+    font-family: 'GothamBook';
+    src: url('fonts/gotham-book.eot');
+    src: url('fonts/gotham-book.eot') format('embedded-opentype'),
+         url('fonts/gotham-book.woff') format('woff'),
+         url('fonts/gotham-book.ttf') format('truetype'),
+         url('fonts/gotham-book.svg#GothamBook') format('svg');
+}
+
+@font-face {
+    font-family: 'GothamMedium';
+    src: url('fonts/gotham-medium.eot');
+    src: url('fonts/gotham-medium.eot') format('embedded-opentype'),
+         url('fonts/gotham-medium.woff') format('woff'),
+         url('fonts/gotham-medium.ttf') format('truetype'),
+         url('fonts/gotham-medium.svg#GothamMedium') format('svg');
+}
+
+@font-face {
+    font-family: 'FjordRegular';
+    src: url('FjordRegular.eot');
+    src: url('FjordRegular.eot') format('embedded-opentype'),
+         url('FjordRegular.woff') format('woff'),
+         url('FjordRegular.ttf') format('truetype'),
+         url('FjordRegular.svg#FjordRegular') format('svg');
+}
+
+
+.clearfix:after {
+    content: ".";
+    display: block;
+    clear: both;
+    visibility: hidden;
+    line-height: 0;
+    height: 0;
+}
+ 
+.clearfix {
+    display: inline-block;
+}
+ 
+html[xmlns] .clearfix {
+    display: block;
+}
+ 
+* html .clearfix {
+    height: 1%;
+}
+
+* {
+    -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
+    text-shadow: none!important;
+    box-sizing: border-box;
+}
+
+body {
+    -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
+    -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
+    -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
+    background-color:#FFFFFF;
+    font-family: 'GothamBook', 'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
+    font-size:12px;
+    height:100%;
+    margin:0px;
+    padding:0px;
+    text-transform:uppercase;
+    width:100%;
+}
+
+/* Portrait layout (default) */
+.app {
+    background:url(../img/logo.png) no-repeat center top; /* 170px x 200px */
+    position:absolute;             /* position in the center of the screen */
+    left:50%;
+    top:50%;
+    height:50px;                   /* text area height */
+    width:225px;                   /* text area width */
+    text-align:center;
+    padding:180px 0px 0px 0px;     /* image height is 200px (bottom 20px are overlapped with text) */
+    margin:-115px 0px 0px -112px;  /* offset vertical: half of image height and text area height */
+                                   /* offset horizontal: half of text area width */
+}
+
+/* Landscape layout (with min-width) */
+@media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
+    .app {
+        background-position:left center;
+        padding:75px 0px 75px 170px;  /* padding-top + padding-bottom + text area = image height */
+        margin:-90px 0px 0px -198px;  /* offset vertical: half of image height */
+                                      /* offset horizontal: half of image width and text area width */
+    }
+}
+
+/*General*/
+a{text-decoration: none; color: inherit!important;}
+header.logo_home{width: 90%; height: auto; margin: 7em auto 2em auto;}
+header.logo_home img{width: 100%; height: auto; margin: 0;}
+
+.overlay{position: absolute; width: 100%; height: 100%; background-color: #000; opacity: 0.4;  z-index: 1;}
+
+
+/*Backgrounds big square buttons*/
+
+    a.ui-btn.big_square,
+    a.ui-btn.big_square:hover {
+        background-repeat: no-repeat;
+        background-position: center center!important;
+    }
+
+    .recorridos_bg{background-color: #C0CD30!important;}
+    a.ui-btn.big_square.recorridos_bg{background-image: url('images/recorridos_home.png');}
+
+    .zonas_bg{background-color: #FCC500!important;}
+    a.ui-btn.big_square.zonas_bg{background-image: url('images/zonas_home.png');}
+
+    .actividades_bg{background-color: #FF8700!important;}
+    a.ui-btn.big_square.actividades_bg{background-image: url('images/actividades_home.png');}
+
+    .lugares_bg{background-color: #E1003F!important;}
+    a.ui-btn.big_square.lugares_bg{background-image: url('images/lugares_home.png');}
+
+    .regina_bg{background-color: #009387!important;}
+    a.ui-btn.big_square.regina_bg{background-image: url('images/regina.png'); background-size: contain;}
+
+    .domingo_bg{background-color: #E18E37!important;}
+    a.ui-btn.big_square.domingo_bg{background-image: url('images/domingo.png'); background-size: contain;}
+
+    .madero_bg{background-color: #FF5975!important;}
+    a.ui-btn.big_square.madero_bg{background-image: url('images/madero.png'); background-size: contain;}
+
+    .garibaldi_bg{background-color: #E52253!important;}
+    a.ui-btn.big_square.garibaldi_bg{background-image: url('images/garibaldi.png'); background-size: contain;}
+
+    .moneda_bg{background-color: #93D5A8!important;}
+    a.ui-btn.big_square.moneda_bg{background-image: url('images/moneda.png'); background-size: contain;}
+
+    .alameda_nte_bg{background-color: #498087!important;}
+    a.ui-btn.big_square.alameda_nte_bg{background-image: url('images/alameda_nte.png'); background-size: contain;}
+
+    .merced_bg{background-color: #D4AA4B!important;}
+    a.ui-btn.big_square.merced_bg{background-image: url('images/merced.png'); background-size: contain;}
+
+    .alameda_sur_bg{background-color: #85C880!important;}
+    a.ui-btn.big_square.alameda_sur_bg{background-image: url('images/alameda_sur.png'); background-size: contain;}
+
+    .idelfonso_bg{background-color: #FF6A00!important;}
+    a.ui-btn.big_square.idelfonso_bg{background-image: url('images/idelfonso.png'); background-size: contain;}
+
+    .ciudadela_bg{background-color: #B30070!important;}
+    a.ui-btn.big_square.ciudadela_bg{background-image: url('images/ciudadela.png'); background-size: contain;}
+
+    .destacados_bg{background-color: #F1A20A!important;}
+    a.ui-btn.big_square.destacados_bg{background-image: url('images/destacados.png'); background-size: contain;}
+
+    .plazas_bg{background-color: #35ACE9!important;}
+    a.ui-btn.big_square.plazas_bg{background-image: url('images/plazas.png'); background-size: contain;}
+
+    .monumentos_bg{background-color: #42AF6A!important;}
+    a.ui-btn.big_square.monumentos_bg{background-image: url('images/monumentos.png'); background-size: contain;}
+
+    .culturales_bg{background-color: #FF6A00!important;}
+    a.ui-btn.big_square.culturales_bg{background-image: url('images/culturales.png'); background-size: contain;}
+
+    .compras_bg{background-color: #E01C24!important;}
+    a.ui-btn.big_square.compras_bg{background-image: url('images/compras.png'); background-size: contain;}
+
+    .comida_bg{background-color: #811E5F!important;}
+    a.ui-btn.big_square.comida_bg{background-image: url('images/comida.png'); background-size: contain;}
+
+
+
+/*Main Header*/
+header.the_header {border: 1px solid #E7E7E7;padding-top: 30px;background: #F1F1F1;}
+header.the_header h1.ui-title{color: #4e4e4e; text-align: center; font-family: 'GothamBook'; font-size: 21px; text-overflow: initial; margin: .3em auto; font-weight: 400; line-height: 1.5em;}
+
+/*Jquery mobile overrides*/
+.ui-btn span{ color: #FFF!important;}
+a.ui-btn.big_square{ display: block; width: 48%; height: 150px; float: left; margin-right: 3%; border: none;}
+a.ui-btn.big_square:nth-child(even){margin-right: 0;}
+.menu_trigger{ display: block; width: 40px; height: 35px; padding:10px; background: url('images/menu_trigger.png') no-repeat center center; top: 30px!important; left: 15px!important; background-size: contain;}
+.ui-panel-inner{margin: 0;padding: 0;}
+
+/*Content*/
+.ui-content > p{font-family: 'FjordRegular'; font-size: 16px; text-transform: none; letter-spacing: 1px; margin: 5px 0;}
+.ui-content > h3{
+    color: #4e4e4e;
+    text-align: center;
+    font-family: 'GothamBook';
+    font-size: 21px;
+    text-transform: none;
+    text-overflow: initial;
+    margin: 0 auto;
+    font-weight: 400;
+    line-height: 1.5em;}
+
+/*Side menu*/
+.menu_panel{
+    background-color: #333333;}
+.menu_panel>p{}
+.menu_panel ul{ list-style: none;margin: 0;
+padding: 0;}
+.menu_panel ul li{width: 100%;padding: .5em;}
+.menu_panel ul li.separator{
+    width: 100%;
+    height: 30px;
+    background-color: #212121;
+    color: #FFF;
+    font-family: 'GothamBook';
+    font-size: 17px;
+    line-height: 12px;
+    padding: .5em;
+    text-transform: none; 
+}
+.menu_panel ul li.separator:nth-child(1){
+    text-transform: uppercase;
+    height: 76px;
+    padding-top: 55px;
+}
+
+/*Sections*/
+section h2{font-family: 'GothamBook'; font-size: 23px; font-weight: 300; color: #616364; text-align: center; margin: 0 auto 10px auto;}
+
+/*Recorridos*/
+.each_recorrido,
+.each_lugar{position: relative; height:21em; overflow: hidden; width: 48%; float: left; margin: 0 2% 1em 0;}
+.each_recorrido img{position: relative; width: 100%; height: auto;}
+
+.each_recorrido .info_container,
+.each_lugar .info_container {position: relative; width: 100%; height: auto; z-index: 2; display: block;}
+
+.each_recorrido .info_container h3,
+.each_lugar .info_container h3,
+.each_recorrido .info_container p{color: #4E4E4E; text-align: center;}
+
+.each_recorrido .info_container h3,
+.each_lugar .info_container h3{margin: 0; text-transform: uppercase; font-family: 'GothamMedium'; font-size: 11px;}
+
+.each_recorrido .info_container p,
+.each_lugar .info_container p{margin-top: 0; text-transform: none; font-size: 10px; font-family: 'GothamBook';}
+
+/*Recorrido-Lugar single*/
+.recorrido_single,
+.lugar_single{width: 100%;}
+.recorrido_single img{width: 100%;height: auto;}
+
+.recorrido_single .info_container,
+.lugar_single{  font-family: 'GothamBook'; color: #616364;}
+
+.recorrido_single .info_container h3,
+.lugar_single h3{font-size: 21px; margin-bottom: 0;}
+
+.recorrido_single .info_container h4{font-size: 19px; margin: 3px auto; text-transform: none;}
+.recorrido_single .info_container p,
+.lugar_single p{ font-family: 'FjordRegular'; font-size: 16px; text-transform: none; letter-spacing: 1px;}
+
+/*Lugares Archive*/
+.each_lugar img{width: 100%; height: auto;}
+
+/*Lugar Single*/
+.cycle-gallery{list-style: none;margin: 0;padding: 0;}
+.cycle-gallery li{width: 100%; height: 100%;}
+.cycle-gallery img{width: 100%; height: auto;}
+
+.cycle-pager{text-align: center;}
+.cycle-pager span{color: #959899; font-size: 2em; margin: 0; line-height: 30px;}
+.cycle-pager span.cycle-pager-active{color: #000;}
+
+.lugar_single h3{font-family: 'GothamMedium';}
+
+span.horario{ background: url(images/clock.png) no-repeat center center; }
+span.horario,
+span.costo{display: inline-block; width: 15px; height: 15px; vertical-align: bottom; margin: 0px 5px;}
+span.costo{ background: url(images/money.png) no-repeat center center;}
+
+/*Zonas*/
+/*.each_zona{float: left;width: 48%;}*/

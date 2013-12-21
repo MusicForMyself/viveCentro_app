@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="format-detection" content="telephone=no" />
+		<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+		
+		
+		<!-- Load main styles and scripts -->
+		<link rel="stylesheet" href="css/jquery-mobile.min.css" />
+		<script src="js/jquery-1.9.1.min.js"></script> 
+		<script src="js/jquery.mobile-1.3.2.min.js"></script>
+
+		<script type="text/javascript" src="js/plugins.js"></script>
+		<script type="text/javascript" src="js/functions.js"></script>
+
+		<!-- styles -->
+		<link rel="stylesheet" href="css/vivecentro.css" />
+	   	<link rel="stylesheet" type="text/css" href="style.css" />
+
+		<title>Vive #en el centro | Recorrido:</title>
+	</head>
+	<body>
+		<div data-role="page">
+			
+		<div data-role="panel" class="menu_panel" id="menu_panel" data-position="left" data-display="push">
+			
+			<ul>
+				
+				<li class="separator">Menú</li>
+
+				<li class="clearfix">
+
+					<a href="recorridos.html" rel="external" class="big_square recorridos_bg not_round" data-role="button" data-theme="a"></a>
+
+					<a href="zonas.html" rel="external" class="big_square zonas_bg not_round " data-role="button" data-theme="a"></a>
+
+					<a href="actividades.html" rel="external" class="big_square actividades_bg not_round" data-role="button" data-theme="a"></a>
+
+					<a href="lugares.html" rel="external" class="big_square lugares_bg not_round " data-role="button" data-theme="a"></a>
+
+				</li>
+			</ul>
+
+		</div><!-- panel -->
+
+
+			<header class="the_header" data-role="header">
+				<a href="#menu_panel" class="menu_trigger" id="menu_trigger" data-role="none"></a>
+				<h1><a href="#" rel="external">Recorridos</a></h1>
+			</header><!-- logo_home -->
+
+			<section data-role="content">
+				<section class="post_feed">
+					
+					<article class="recorrido_single" data-role="none">
+							
+							
+					</article><!-- each_recorrido -->
+					
+					<section class="lugares_container">
+
+						<!-- Loop lugares del recorrido -->
+
+						
+
+					</section><!-- lugares_container -->
+					
+				</section><!-- post_feed -->
+
+			</section><!-- content -->
+
+		</div>
+
+		<script>
+
+			(function ($){
+				
+				function getUrlVars() {
+				    var vars = {};
+				    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+				        vars[key] = value;
+				    });
+				    return vars;
+				}
+
+				var id  = getUrlVars()["id"];
+
+				$.getJSON('http://viveelcentro.mx/feed-single/?id='+id, function(data){
+					$.each(data, function(key, value){
+
+						if( value.imagenes == 'http://viveelcentro.mx/wp-includes/images/crystal/default.png' ){
+							value.imagenes = 'images/noimg.jpg'
+						}
+						//Content Recorrido
+						$('.recorrido_single').append(
+							'<img src="'+value.imagenes+'" alt="'+value.autor+'"> <div class="info_container"> <h3>'+value.titulo+'</h3> <h4>'+value.autor+'</h4> <p>'+value.contenido+'</p> </div>'); 
+
+						lugares_array = value.lugares;
+
+						
+						var lugares_html =[];
+
+						for( i = 0; i< lugares_array.length; i++ ){
+
+
+							this_object = lugares_array[i];
+
+							console.log( this_object );
+							image_url = this_object.imagen_lugar;
+							title     = this_object.lugar;
+							lugar_id  = this_object.ID;
+
+							var title_parts = title.split("<!--:-->");
+
+							title = title_parts[1].substring(10);
+
+							if( image_url == 'http://viveelcentro.mx/wp-includes/images/crystal/default.png' ){
+								image_url = 'images/noimg.jpg'
+							}
+
+							lugares_html += '<article class="each_lugar" data-role="none"> <a href="lugar-single.html?id='+lugar_id+'" rel="external"> <img src="'+image_url+'" alt="'+title+'"> <div class="info_container"> <h3>'+title+'</h3></div></a></article>';
+						}
+
+						//Lugares del recorrido
+						$('.lugares_container').append( lugares_html ); 
+					});
+				});
+			})(jQuery);
+
+		</script>
+
+		<!-- Load this page scripts -->
+		<script type="text/javascript" src="cordova.js"></script>
+		<script type="text/javascript" src="phonegap.js"></script>
+	</body>
+</html>

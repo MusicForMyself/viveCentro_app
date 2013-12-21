@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="format-detection" content="telephone=no" />
+		<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+		
+		
+		<!-- Load main styles and scripts -->
+		<link rel="stylesheet" href="css/jquery-mobile.min.css" />
+		<script src="js/jquery-1.9.1.min.js"></script> 
+		<script src="js/jquery.mobile-1.3.2.min.js"></script>
+
+		<script type="text/javascript" src="js/plugins.js"></script>
+		<script type="text/javascript" src="js/functions.js"></script>
+
+		<!-- styles -->
+		<link rel="stylesheet" href="css/vivecentro.css" />
+	   	<link rel="stylesheet" type="text/css" href="style.css" />
+		
+
+		<title>Vive #en el centro | Lugares por categoría</title>
+		
+	</head>
+	<body>
+		<div data-role="page">
+			
+		<div data-role="panel" class="menu_panel" id="menu_panel" data-position="left" data-display="push">
+
+			<ul>
+				
+				<li class="separator">Menú</li>
+
+				<li class="clearfix">
+
+					<a href="recorridos.html" rel="external" class="big_square recorridos_bg not_round" data-role="button" data-theme="a"></a>
+
+					<a href="zonas.html" rel="external" class="big_square zonas_bg not_round " data-role="button" data-theme="a"></a>
+
+					<a href="actividades.html" rel="external" class="big_square actividades_bg not_round" data-role="button" data-theme="a"></a>
+
+					<a href="lugares.html" rel="external" class="big_square lugares_bg not_round " data-role="button" data-theme="a"></a>
+
+				</li>
+			</ul>
+
+		</div><!-- panel -->
+
+
+			<header class="the_header" data-role="header">
+				<a href="#menu_panel" class="menu_trigger" id="menu_trigger" data-role="none"></a>
+				<h1 class="insert_cat_name"></h1>
+			</header><!-- logo_home -->
+
+			<section data-role="content">
+				<section class="post_feed">
+					
+					<article class="lugar_single" data-role="none">
+
+							<section class="lugares_container">
+
+								<!-- Loop lugares del recorrido -->
+
+								
+
+								<!-- End Loop lugares del recorrido -->
+
+							</section><!-- lugares_container -->
+
+
+					</article><!-- each_recorrido -->
+					
+					
+					
+				</section><!-- post_feed -->
+
+			</section><!-- content -->
+
+		</div>
+
+		<script>
+
+			(function ($){
+
+				function getUrlVars() {
+				    var vars = {};
+				    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+				        vars[key] = value;
+				    });
+				    return vars;
+				}
+
+				var cat  = getUrlVars()["cat"];
+				console.log(cat);
+				$('.insert_cat_name').text(cat);
+				
+				$.getJSON('http://viveelcentro.mx/feeds/?type=lugares&cat='+cat, function(data){
+
+					$.each(data, function(key, value){
+
+						if( value.imagenes == 'http://viveelcentro.mx/wp-includes/images/crystal/default.png' ){
+							value.imagenes = 'images/noimg.jpg'
+						}
+					$('.lugares_container').append('<article class="each_lugar" data-role="none"><a href="lugar-single.html?id='+value.ID+'" rel="external"> <img src="'+value.imagenes+'" alt="'+value.titulo+'"> <div class="info_container"> <h3>'+value.titulo+'</h3> </div> </a> </article>'); });
+				});
+			})(jQuery);
+
+		</script>
+
+		<!-- Load this page scripts -->
+		<script type="text/javascript" src="cordova.js"></script>
+		<script type="text/javascript" src="phonegap.js"></script>
+	</body>
+</html>
