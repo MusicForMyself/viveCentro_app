@@ -19,23 +19,6 @@
 
 		<title>Vive #en el centro | Recorridos</title>
 
-		<script>
-
-			(function ($){
-				
-				$.getJSON('http://viveelcentro.mx/feeds/?type=recorridos', function(data){
-
-					$.each(data, function(key, value){
-						
-						if( value.imagenes == 'http://viveelcentro.mx/wp-includes/images/crystal/default.png' ){
-							value.imagenes = 'images/noimg.jpg'
-						}
-						$('.post_feed').append('<article class="each_recorrido" data-role="none"><a href="recorrido-single.html?id='+value.ID+'"> <img src="'+ value.imagenes +'" alt="'+value.autor+'"> <div class="info_container"> <h3>'+value.titulo+'</h3> <p>'+value.autor+'</p></div></a></article>'); });
-				});
-			})(jQuery);
-
-		</script>
-
 	</head>
 	<body>
 		<div data-role="page">
@@ -75,8 +58,23 @@
 				</section><!-- post_feed -->
 
 			</section><!-- content -->
+			<script>
 
-		</div>
+				(function ($){
+					
+					$.getJSON('http://viveelcentro.mx/feeds/?type=recorridos', function(data){
+						if( !data ) location.reload();
+						$.each(data, function(key, value){
+							
+							if( value.imagenes == 'http://viveelcentro.mx/wp-includes/images/crystal/default.png' ){
+								value.imagenes = 'images/noimg.jpg'
+							}
+							$('.post_feed').append('<article class="each_recorrido" data-role="none"><a href="recorrido-single.html?id='+value.ID+'"> <img src="'+ value.imagenes +'" alt="'+value.autor+'"> <div class="info_container"> <h3>'+value.titulo+'</h3> <p>'+value.autor+'</p></div></a></article>'); });
+					});
+				})(jQuery);
+
+			</script>
+		</div> <!-- data-role page -->
 		
 		<!-- Load this page scripts -->
 		<script type="text/javascript" src="cordova.js"></script>

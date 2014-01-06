@@ -93,7 +93,7 @@
 				$('.insert_cat_name').text(cat);
 
 				$.getJSON('http://viveelcentro.mx/feeds/?type=lugares&cat='+cat, function(data){
-
+					if( !data ) location.reload();
 					$.each(data, function(key, value){
 
 						if( value.imagenes == 'http://viveelcentro.mx/wp-includes/images/crystal/default.png' ){

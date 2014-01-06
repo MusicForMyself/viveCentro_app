@@ -69,69 +69,70 @@
 				</section><!-- post_feed -->
 
 			</section><!-- content -->
+			
 
-		</div>
+			<script>
 
-		<script>
+				(function ($){
+					
+					function getUrlVars() {
+					    var vars = {};
+					    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+					        vars[key] = value;
+					    });
+					    return vars;
+					}
 
-			(function ($){
-				
-				function getUrlVars() {
-				    var vars = {};
-				    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
-				        vars[key] = value;
-				    });
-				    return vars;
-				}
+					var id  = getUrlVars()["id"];
 
-				var id  = getUrlVars()["id"];
+					$.getJSON('http://viveelcentro.mx/feed-single/?id='+id, function(data){
+							if( !data ) location.reload();
+						$.each(data, function(key, value){
 
-				$.getJSON('http://viveelcentro.mx/feed-single/?id='+id, function(data){
-					$.each(data, function(key, value){
+							if( value.imagenes == 'http://viveelcentro.mx/wp-includes/images/crystal/default.png' ){
+								value.imagenes = 'images/noimg.jpg'
+							}
+							//Content Recorrido
+							$('.recorrido_single').append(
+								'<img src="'+value.imagenes+'" alt="'+value.autor+'"> <div class="info_container"> <h3>'+value.titulo+'</h3> <h4>'+value.autor+'</h4> <p>'+value.contenido+'</p> </div>'); 
 
-						if( value.imagenes == 'http://viveelcentro.mx/wp-includes/images/crystal/default.png' ){
-							value.imagenes = 'images/noimg.jpg'
-						}
-						//Content Recorrido
-						$('.recorrido_single').append(
-							'<img src="'+value.imagenes+'" alt="'+value.autor+'"> <div class="info_container"> <h3>'+value.titulo+'</h3> <h4>'+value.autor+'</h4> <p>'+value.contenido+'</p> </div>'); 
+							lugares_array = value.lugares;
 
-						lugares_array = value.lugares;
+							
+							var lugares_html =[];
 
-						
-						var lugares_html =[];
-
-						for( i = 0; i< lugares_array.length; i++ ){
+							for( i = 0; i< lugares_array.length; i++ ){
 
 
-							this_object = lugares_array[i];
+								this_object = lugares_array[i];
 
-							console.log( this_object );
-							image_url = this_object.imagen_lugar;
-							title     = this_object.lugar;
-							lugar_id  = this_object.ID;
+								// console.log( this_object );
+								image_url = this_object.imagen_lugar;
+								title     = this_object.lugar;
+								lugar_id  = this_object.ID;
 
-							var title_parts = title.split("<!--:-->");
+								var title_parts = title.split("<!--:-->");
 
-							title = title_parts[1].substring(10);
+								title = title_parts[1].substring(10);
 
-							if( image_url == 'http://viveelcentro.mx/wp-includes/images/crystal/default.png' ){
-								image_url = 'images/noimg.jpg'
+								if( image_url == 'http://viveelcentro.mx/wp-includes/images/crystal/default.png' ){
+									image_url = 'images/noimg.jpg'
+								}
+
+								lugares_html += '<article class="each_lugar" data-role="none"> <a href="lugar-single.html?id='+lugar_id+'" rel="external"> <img src="'+image_url+'" alt="'+title+'"> <div class="info_container"> <h3>'+title+'</h3></div></a></article>';
 							}
 
-							lugares_html += '<article class="each_lugar" data-role="none"> <a href="lugar-single.html?id='+lugar_id+'" rel="external"> <img src="'+image_url+'" alt="'+title+'"> <div class="info_container"> <h3>'+title+'</h3></div></a></article>';
-						}
-
-						//Lugares del recorrido
-						$('.lugares_container').append( lugares_html ); 
+							//Lugares del recorrido
+							$('.lugares_container').append( lugares_html ); 
+						});
 					});
-				});
-			})(jQuery);
+				})(jQuery);
 
-		</script>
+			</script>
 
-		<!-- Load this page scripts -->
-		<script type="text/javascript" src="cordova.js"></script>
-		<script type="text/javascript" src="phonegap.js"></script>
+		</div><!-- data role page -->
+
+		
+
 	</body>
 </html>

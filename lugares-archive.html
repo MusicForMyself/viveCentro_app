@@ -95,7 +95,7 @@
 				$('.insert_cat_name').text(cat);
 				
 				$.getJSON('http://viveelcentro.mx/feeds/?type=lugares&cat='+cat, function(data){
-
+					if( !data ) location.reload();
 					$.each(data, function(key, value){
 
 						if( value.imagenes == 'http://viveelcentro.mx/wp-includes/images/crystal/default.png' ){
@@ -103,6 +103,7 @@
 						}
 					$('.lugares_container').append('<article class="each_lugar" data-role="none"><a href="lugar-single.html?id='+value.ID+'" rel="external"> <img src="'+value.imagenes+'" alt="'+value.titulo+'"> <div class="info_container"> <h3>'+value.titulo+'</h3> </div> </a> </article>'); });
 				});
+
 			})(jQuery);
 
 		</script>

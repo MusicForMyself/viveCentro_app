@@ -57,7 +57,7 @@
 							
 							
 
-					</article><!-- each_recorrido -->
+					</article><!-- lugar_single -->
 					
 					
 					
@@ -88,9 +88,8 @@
 				// var request_url = 'http://viveelcentro.mx/feed-single/?id='+id+recorrido+descripcion;
 				var request_url = 'http://viveelcentro.mx/feed-single/?id='+id;
 
-				console.log(request_url);
 				$.getJSON( request_url, function(data){
-
+					if( !data ) location.reload();
 					$.each(data, function(key, value){
 
 						images_array = value.galeria;
@@ -101,30 +100,32 @@
 							images_html += '<li><img src="'+image_url+'" alt=""></li>';
 						}
 
-						console.log(value);
-
 
 					if( value.imagenes == 'http://viveelcentro.mx/wp-includes/images/crystal/default.png' ){
 					value.imagenes = 'images/noimg.jpg'
 					}
-					$('.lugar_single').append('<h3>'+value.titulo+'</h3> <ul class="cycle-gallery">'+images_html+'</ul> <div class="cycle-pager"></div> <div class="info_container"> <p>'+value.contenido+'</p> <p><span class="horario"></span>'+value.horario+'</p> <p><span class="costo"></span>'+value.precio+'</p> <p>'+value.term[1]+'</p> </div>'); 
 
-// <iframe width="100%" height="220" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com.mx/maps?f=q&amp;source=s_q&amp;hl=es-419&amp;geocode=&amp;sll=19.436192,-99.141939&amp;sspn=0.008903,0.015836&amp;ie=UTF8&amp;hq=&amp;hnear=Bellas+Artes,+Federal,+Ciudad+de+M%C3%A9xico,+Distrito+Federal&amp;t=m&amp;z=14&amp;ll='+value.latlong+'&amp;output=embed">
+					var latlong = value.latlong.replace(/ /g,'');
 
-// </iframe>
-// 							
+					$('.lugar_single').append('<h3>'+value.titulo+'</h3> <ul class="cycle-gallery">'+images_html+'</ul> <div class="cycle-pager"></div> <div class="info_container"> <p>'+value.contenido+'</p> <p><span class="horario"></span>'+value.horario+'</p> <p><span class="costo"></span>'+value.precio+'</p> <p>'+value.term[1]+'</p><a href="http://maps.apple.com/?q='+latlong+'"><img class="map_static" src="http://maps.googleapis.com/maps/api/staticmap?center='+latlong+'&zoom=17&size=320x220&sensor=true&markers=color:red%7Clabel:A%7C'+latlong+'&size=320x220"></a></div>'); 
+							
+					});
+
+					$('.cycle-gallery').cycle({
+						slides : 'li',
+						fx     : 'scrollHorz',
+						pager  : '.cycle-pager',
+						swipe  : true
 					});
 				});
 				
 			})(jQuery);
 			
 		</script>
-		</div> <!-- data-role=page -->
+		</div> <!-- data-role page -->
 
 
 		<!-- Load this page scripts -->
-		<script type="text/javascript" src="cordova.js"></script>
-		<script type="text/javascript" src="phonegap.js"></script>
 		<script type="text/javascript" src="js/plugins.js"></script>
 		<script type="text/javascript" src="js/functions.js"></script>
 	</body>

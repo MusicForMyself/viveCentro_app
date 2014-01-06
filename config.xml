@@ -1,17 +1,21 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.viveelcentro.viveelcentro" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
-    <name>vivecentroApp</name>
+<widget 
+    id="com.viveelcentro.viveelcentro" 
+    version="1.0.0" 
+    xmlns="http://www.w3.org/ns/widgets" 
+    xmlns:gap="http://phonegap.com/ns/1.0"  >
+    <name>Vive el Centro</name>
     <description>
-       Vive el Centro App
+       App móvil del sitio viveelcentro.mx
     </description>
     <author email="cova@hacemoscodigo.com" href="http://hacemoscodigo.com">
         Hacemos Código
     </author>
     <feature name="http://api.phonegap.com/1.0/device" />
     <preference name="permissions" value="none" />
-    <preference name="orientation" value="default" />
+    <preference name="orientation" value="portrait" />
     <preference name="target-device" value="universal" />
-    <preference name="fullscreen" value="true" />
+    <preference name="fullscreen" value="false" />
     <preference name="webviewbounce" value="true" />
     <preference name="prerendered-icon" value="true" />
     <preference name="stay-in-webview" value="false" />
@@ -21,7 +25,9 @@
     <preference name="show-splash-screen-spinner" value="true" />
     <preference name="auto-hide-splash-screen" value="true" />
     <preference name="disable-cursor" value="false" />
-    <preference name="android-minSdkVersion" value="7" />
+    <preference name="android-minSdkVersion" value="15" />
+    <preference name="android-maxSdkVersion" value="15" />
+    <preference name="android-targetSdkVersion" value="15" />
     <preference name="android-installLocation" value="auto" />
     <icon src="icon.png" />
     <icon gap:density="ldpi" gap:platform="android" src="res/icon/android/icon-36-ldpi.png" />
@@ -48,5 +54,6 @@
     <gap:splash gap:platform="ios" height="768" src="res/screen/ios/screen-ipad-landscape.png" width="1024" />
     <gap:splash gap:platform="winphone" src="res/screen/windows-phone/screen-portrait.jpg" />
     <access origin="http://127.0.0.1*" />
+    <access origin="*" />
     <content src="index.html" />
 </widget>
