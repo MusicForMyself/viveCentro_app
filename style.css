@@ -240,7 +240,8 @@ padding: 0;}
 section h2{font-family: 'GothamBook'; font-size: 23px; font-weight: 300; color: #616364; text-align: center; margin: 0 auto 10px auto;}
 
 /*Recorridos*/
-.each_recorrido:nth-of-type(odd){clear: left;}
+.each_recorrido:nth-of-type(odd),
+.each_lugar:nth-of-type(odd){clear: left;}
 .each_recorrido,
 .each_lugar{position: relative; height:auto; overflow: hidden; width: 48%; float: left; margin: 0 2% 0 0;}
 .each_recorrido img{position: relative; width: 100%; height: auto;}
