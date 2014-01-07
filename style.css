@@ -190,13 +190,13 @@ header.logo_home img{width: 100%; height: auto; margin: 0;}
 
 /*Main Header*/
 header.the_header {border: 1px solid #E7E7E7;background: #F1F1F1;}
-header.the_header h1.ui-title{color: #4e4e4e; text-align: center; font-family: 'GothamBook'; font-size: 21px; text-overflow: initial; margin: .3em auto; font-weight: 400; line-height: 1.5em;}
+header.the_header h1.ui-title{color: #4e4e4e; text-align: center; font-family: 'GothamBook'; font-size: 21px; text-overflow: initial; margin: 0.5em auto 0.2em auto; font-weight: 400; line-height: 1.5em;}
 
 /*Jquery mobile overrides*/
 .ui-btn span{ color: #FFF!important;}
 a.ui-btn.big_square{ display: block; width: 48%; height: 150px; float: left; margin-right: 3%; border: none;}
 a.ui-btn.big_square:nth-child(even){margin-right: 0;}
-.menu_trigger{ display: block; width: 40px; height: 35px; padding:10px; background: url('images/menu_trigger.png') no-repeat center center; top: 5px!important; left: 10px!important; background-size: contain;}
+.menu_trigger{ display: block; width: 30px; height: 35px; padding:10px; background: url('images/menu_trigger.png') no-repeat center center; top: 8px!important; left: 13px!important; background-size: contain;}
 .ui-panel-inner{margin: 0;padding: 0;}
 
 /*Content*/
@@ -214,7 +214,8 @@ a.ui-btn.big_square:nth-child(even){margin-right: 0;}
 
 /*Side menu*/
 .menu_panel{
-    background-color: #333333;}
+    background-color: #333333;
+    border: none!important;}
 .menu_panel>p{}
 .menu_panel ul{ list-style: none;margin: 0;
 padding: 0;}
@@ -240,8 +241,8 @@ padding: 0;}
 section h2{font-family: 'GothamBook'; font-size: 23px; font-weight: 300; color: #616364; text-align: center; margin: 0 auto 10px auto;}
 
 /*Recorridos*/
-.each_recorrido:nth-of-type(odd),
-.each_lugar:nth-of-type(odd){clear: left;}
+.each_recorrido:nth-of-type(2n-1),
+.each_lugar:nth-of-type(2n-1){clear: left;}
 .each_recorrido,
 .each_lugar{position: relative; height:auto; overflow: hidden; width: 48%; float: left; margin: 0 2% 0 0;}
 .each_recorrido img{position: relative; width: 100%; height: auto;}
@@ -296,3 +297,6 @@ span.costo{display: inline-block; width: 15px; height: 15px; vertical-align: bot
 span.costo{ background: url(images/money.png) no-repeat center center;}
 
 /*Zonas*/
+
+/*Actividades*/
+.actividades_img{width: 100%; height: auto; margin: 0 auto;}

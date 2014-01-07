@@ -27,13 +27,13 @@
 			(function ($){
 				
 				$.getJSON('http://viveelcentro.mx/feeds/?type=actividades', function(data){
-
+					if( !data ) location.reload();
 					$.each(data, function(key, value){
 
 						if( value.imagenes == 'http://viveelcentro.mx/wp-includes/images/crystal/default.png' ){
 							value.imagenes = 'images/noimg.jpg'
 						}
-						$('.lugares_container').append('<article class="each_lugar" data-role="none"><a href="lugar-single.html?ID='+value.ID+'" rel="external"> <img src="'+ value.imagenes +'" alt="Un lugar"> <div class="info_container"> <h3>'+ value.titulo +'</h3> </div> </a> </article>'); });
+						$('.lugares_container').append('<article class="each_lugar" data-role="none"><a href="actividades-single.html?ID='+value.ID+'" rel="external"> <img src="'+ value.imagenes +'" alt="Un lugar"> <div class="info_container"> <h3>'+ value.titulo +'</h3> </div> </a> </article>'); });
 
 				});
 			})(jQuery);
@@ -78,7 +78,7 @@
 
 							<section class="lugares_container" id="feedActividades">
 
-								<!-- Loop aactividades INSERT HERE -->
+								<!-- Loop actividades INSERT HERE -->
 
 
 							</section><!-- lugares_container -->
