@@ -28,6 +28,9 @@
 				$('.menu_trigger').removeClass('open');
 			});
 			
+			$('.share').on('click', function(){
+				//Desplegar el pop de share
+			});
 
 
 		});
