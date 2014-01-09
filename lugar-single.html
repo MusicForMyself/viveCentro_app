@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8" />
 		<meta name="format-detection" content="telephone=no" />
-		<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+		<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height" />
 		
 		
 		<!-- Load main styles and scripts -->
@@ -78,17 +78,20 @@
 
 				var id  = getUrlVars()["id"];
 				var images_array = [];
-				var recorrido, descripcion;
+				var recorrido = '', descripcion = '';
 
-				if( getUrlVars()["recorrido"] ){
-					recorrido = '&recorrido='+getUrlVars()["recorrido"];
+
+				if( typeof(getUrlVars()["recorrido"]) != 'undefined' ){
+					recorrido   = '&recorrido='+getUrlVars()["recorrido"];
 					descripcion = '&descripcion='+getUrlVars()["descripcion"];
 				}
 				
-				// var request_url = 'http://viveelcentro.mx/feed-single/?id='+id+recorrido+descripcion;
-				var request_url = 'http://viveelcentro.mx/feed-single/?id='+id;
+				var request_url = 'http://viveelcentro.mx/feed-single/?id='+id+recorrido+descripcion;
+				console.log(request_url);
+				// var request_url = 'http://viveelcentro.mx/feed-single/?id='+id;
 
 				$.getJSON( request_url, function(data){
+					console.log(data);
 					if( !data ) location.reload();
 					$.each(data, function(key, value){
 
@@ -105,9 +108,11 @@
 					value.imagenes = 'images/noimg.jpg'
 					}
 
-					var latlong = value.latlong.replace(/ /g,'');
+					var latlong   = value.latlong.replace(/ /g,''),
+						horario   = ( value.horario ) ? '<span class="horario"></span><p>'+value.horario+'</p> ' : '',
+						ubicacion = ( value.precio ) ? '<span class="costo"></span><p>'+value.precio+'</p> ' : '';
 
-					$('.lugar_single').append('<h3>'+value.titulo+'</h3> <ul class="cycle-gallery">'+images_html+'</ul> <div class="cycle-pager"></div> <div class="info_container"> <p>'+value.contenido+'</p> <p><span class="horario"></span>'+value.horario+'</p> <p><span class="costo"></span>'+value.precio+'</p> <p>'+value.term[1]+'</p><a href="http://maps.apple.com/?q='+latlong+'"><img class="map_static" src="http://maps.googleapis.com/maps/api/staticmap?center='+latlong+'&zoom=17&size=320x220&sensor=true&markers=color:red%7Clabel:A%7C'+latlong+'&size=320x220"></a></div>'); 
+					$('.lugar_single').append('<h3>'+value.titulo+'</h3> <ul class="cycle-gallery">'+images_html+'</ul> <div class="cycle-pager"></div> <div class="info_container"> <p>'+value.contenido+'</p> '+horario+ubicacion+'<p>Zona: '+value.term[1]+'</p><a href="http://maps.apple.com/?q='+latlong+'"><img class="map_static" src="http://maps.googleapis.com/maps/api/staticmap?center='+latlong+'&zoom=17&size=320x220&sensor=true&markers=color:red%7Clabel:A%7C'+latlong+'&size=320x220"></a></div>'); 
 							
 					});
 

@@ -44,6 +44,7 @@
          url('FjordRegular.svg#FjordRegular') format('svg');
 }
 
+html { font-size: 62.5%; } 
 
 .clearfix:after {
     content: ".";
@@ -120,11 +121,6 @@ header.logo_home img{width: 100%; height: auto; margin: 0;}
 
 /*Backgrounds big square buttons*/
 
-    a.ui-btn.big_square,
-    a.ui-btn.big_square:hover {
-        background-repeat: no-repeat;
-        background-position: center center!important;
-    }
 
     .recorridos_bg{background-color: #C0CD30!important;}
     a.ui-btn.big_square.recorridos_bg{background-image: url('images/recorridos_home.png');}
@@ -139,64 +135,71 @@ header.logo_home img{width: 100%; height: auto; margin: 0;}
     a.ui-btn.big_square.lugares_bg{background-image: url('images/lugares_home.png');}
 
     .regina_bg{background-color: #009387!important;}
-    a.ui-btn.big_square.regina_bg{background-image: url('images/regina.png'); background-size: contain;}
+    a.ui-btn.big_square.regina_bg{background-image: url('images/regina.png');}
 
     .domingo_bg{background-color: #E18E37!important;}
-    a.ui-btn.big_square.domingo_bg{background-image: url('images/domingo.png'); background-size: contain;}
+    a.ui-btn.big_square.domingo_bg{background-image: url('images/domingo.png');}
 
     .madero_bg{background-color: #FF5975!important;}
-    a.ui-btn.big_square.madero_bg{background-image: url('images/madero.png'); background-size: contain;}
+    a.ui-btn.big_square.madero_bg{background-image: url('images/madero.png');}
 
     .garibaldi_bg{background-color: #E52253!important;}
-    a.ui-btn.big_square.garibaldi_bg{background-image: url('images/garibaldi.png'); background-size: contain;}
+    a.ui-btn.big_square.garibaldi_bg{background-image: url('images/garibaldi.png');}
 
     .moneda_bg{background-color: #93D5A8!important;}
-    a.ui-btn.big_square.moneda_bg{background-image: url('images/moneda.png'); background-size: contain;}
+    a.ui-btn.big_square.moneda_bg{background-image: url('images/moneda.png');}
 
     .alameda_nte_bg{background-color: #498087!important;}
-    a.ui-btn.big_square.alameda_nte_bg{background-image: url('images/alameda_nte.png'); background-size: contain;}
+    a.ui-btn.big_square.alameda_nte_bg{background-image: url('images/alameda_nte.png');}
 
     .merced_bg{background-color: #D4AA4B!important;}
-    a.ui-btn.big_square.merced_bg{background-image: url('images/merced.png'); background-size: contain;}
+    a.ui-btn.big_square.merced_bg{background-image: url('images/merced.png');}
 
     .alameda_sur_bg{background-color: #85C880!important;}
-    a.ui-btn.big_square.alameda_sur_bg{background-image: url('images/alameda_sur.png'); background-size: contain;}
+    a.ui-btn.big_square.alameda_sur_bg{background-image: url('images/alameda_sur.png');}
 
     .idelfonso_bg{background-color: #FF6A00!important;}
-    a.ui-btn.big_square.idelfonso_bg{background-image: url('images/idelfonso.png'); background-size: contain;}
+    a.ui-btn.big_square.idelfonso_bg{background-image: url('images/idelfonso.png');}
 
     .ciudadela_bg{background-color: #B30070!important;}
-    a.ui-btn.big_square.ciudadela_bg{background-image: url('images/ciudadela.png'); background-size: contain;}
+    a.ui-btn.big_square.ciudadela_bg{background-image: url('images/ciudadela.png');}
 
     .destacados_bg{background-color: #F1A20A!important;}
-    a.ui-btn.big_square.destacados_bg{background-image: url('images/destacados.png'); background-size: contain;}
+    a.ui-btn.big_square.destacados_bg{background-image: url('images/destacados.png');}
 
     .plazas_bg{background-color: #35ACE9!important;}
-    a.ui-btn.big_square.plazas_bg{background-image: url('images/plazas.png'); background-size: contain;}
+    a.ui-btn.big_square.plazas_bg{background-image: url('images/plazas.png');}
 
     .monumentos_bg{background-color: #42AF6A!important;}
-    a.ui-btn.big_square.monumentos_bg{background-image: url('images/monumentos.png'); background-size: contain;}
+    a.ui-btn.big_square.monumentos_bg{background-image: url('images/monumentos.png');}
 
     .culturales_bg{background-color: #FF6A00!important;}
-    a.ui-btn.big_square.culturales_bg{background-image: url('images/culturales.png'); background-size: contain;}
+    a.ui-btn.big_square.culturales_bg{background-image: url('images/culturales.png');}
 
     .compras_bg{background-color: #E01C24!important;}
-    a.ui-btn.big_square.compras_bg{background-image: url('images/compras.png'); background-size: contain;}
+    a.ui-btn.big_square.compras_bg{background-image: url('images/compras.png');}
 
     .comida_bg{background-color: #811E5F!important;}
-    a.ui-btn.big_square.comida_bg{background-image: url('images/comida.png'); background-size: contain;}
+    a.ui-btn.big_square.comida_bg{background-image: url('images/comida.png');}
 
+    a.ui-btn.big_square,
+    a.ui-btn.big_square:hover {
+        background-repeat: no-repeat!important;
+        background-position: center center!important;
+        background-size: contain!important;
+    }
 
 
 /*Main Header*/
 header.the_header {border: 1px solid #E7E7E7;background: #F1F1F1;}
-header.the_header h1.ui-title{color: #4e4e4e; text-align: center; font-family: 'GothamBook'; font-size: 21px; text-overflow: initial; margin: 0.5em auto 0.2em auto; font-weight: 400; line-height: 1.5em;}
+header.the_header h1.ui-title{width: 92%; color: #4e4e4e; text-align: center; font-family: 'GothamBook'; font-size: 21px; font-size: 2.1rem; text-overflow: ellipsis; margin: 0.5em auto 0.2em auto; padding: 0 1.1em 0 1.8em; font-weight: 400; line-height: 1.5em;}
 
 /*Jquery mobile overrides*/
 .ui-btn span{ color: #FFF!important;}
 a.ui-btn.big_square{ display: block; width: 48%; height: 150px; float: left; margin-right: 3%; border: none;}
 a.ui-btn.big_square:nth-child(even){margin-right: 0;}
 .menu_trigger{ display: block; width: 30px; height: 35px; padding:10px; background: url('images/menu_trigger.png') no-repeat center center; top: 8px!important; left: 13px!important; background-size: contain;}
+.open{ left: -3em!important; background: url('images/menu_trigger_white.png') no-repeat center center;}
 .ui-panel-inner{margin: 0;padding: 0;}
 
 /*Content*/
@@ -244,7 +247,7 @@ section h2{font-family: 'GothamBook'; font-size: 23px; font-weight: 300; color: 
 .each_recorrido:nth-of-type(2n-1),
 .each_lugar:nth-of-type(2n-1){clear: left;}
 .each_recorrido,
-.each_lugar{position: relative; height:auto; overflow: hidden; width: 48%; float: left; margin: 0 2% 0 0;}
+.each_lugar{position: relative; height:auto; overflow: hidden; width: 48%; float: left; margin: 0 2% .3em 0;}
 .each_recorrido img{position: relative; width: 100%; height: auto;}
 
 .each_recorrido .info_container,
@@ -255,10 +258,10 @@ section h2{font-family: 'GothamBook'; font-size: 23px; font-weight: 300; color: 
 .each_recorrido .info_container p{color: #4E4E4E; text-align: center;}
 
 .each_recorrido .info_container h3,
-.each_lugar .info_container h3{margin: 0; text-transform: uppercase; font-family: 'GothamMedium'; font-size: 11px;}
+.each_lugar .info_container h3{margin: 0; text-transform: uppercase; font-family: 'GothamMedium'; font-size: 11px; font-size: 1.1rem;}
 
 .each_recorrido .info_container p,
-.each_lugar .info_container p{margin-top: 0; text-transform: none; font-size: 10px; font-family: 'GothamBook';}
+.each_lugar .info_container p{margin-top: 0; text-transform: none; font-size: 10px; font-size: 1rem; font-family: 'GothamBook';}
 
 .map_static{width: 100%; height: auto; margin:0; padding:0; border: 1px solid #999999!important;}
 
@@ -271,11 +274,11 @@ section h2{font-family: 'GothamBook'; font-size: 23px; font-weight: 300; color: 
 .lugar_single{  font-family: 'GothamBook'; color: #616364;}
 
 .recorrido_single .info_container h3,
-.lugar_single h3{font-size: 21px; margin-bottom: 0;}
+.lugar_single h3{font-size: 21px; font-size: 2.1rem; margin-bottom: 0;}
 
-.recorrido_single .info_container h4{font-size: 19px; margin: 3px auto; text-transform: none;}
+.recorrido_single .info_container h4{ font-size: 19px; font-size: 1.9rem; margin: 3px auto; text-transform: none;}
 .recorrido_single .info_container p,
-.lugar_single p{ font-family: 'FjordRegular'; font-size: 16px; text-transform: none; letter-spacing: 1px;}
+.lugar_single p{ font-family: 'FjordRegular'; font-size: 16px; font-size: 1.6rem; text-transform: none; letter-spacing: 1px;}
 
 /*Lugares Archive*/
 .each_lugar img{width: 100%; height: auto;}
@@ -293,10 +296,30 @@ section h2{font-family: 'GothamBook'; font-size: 23px; font-weight: 300; color: 
 
 span.horario{ background: url(images/clock.png) no-repeat center center; }
 span.horario,
-span.costo{display: inline-block; width: 15px; height: 15px; vertical-align: bottom; margin: 0px 5px;}
+span.costo{float: left; clear: left; width: 15px; height: 15px; vertical-align: bottom; margin: 3px 5px 0 0;}
+span.horario+p,
+span.costo+p{float: left; clear: right; width: 90%; margin-top: 0;}
 span.costo{ background: url(images/money.png) no-repeat center center;}
+span.horario{ background: url(images/clock.png) no-repeat center center; }
 
 /*Zonas*/
 
 /*Actividades*/
 .actividades_img{width: 100%; height: auto; margin: 0 auto;}
+
+
+/*Media Queries*/
+@media screen
+and (-webkit-max-device-pixel-ratio: 1),
+and (max--moz-device-pixel-ratio: 1),
+and (-o-max-device-pixel-ratio: 1/1),
+and (max-resolution: 1dppx),
+and (max-resolution: 125dpi)
+{
+    /* Your code to swap higher DPI images */
+    p{
+        font-size: 3em;
+    }
+}
+
+

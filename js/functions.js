@@ -19,13 +19,15 @@
 
 			/// FEED ACTIVIDADES //////////////////////////////
 
+			$('.menu_trigger').on('click', function(){
+				if( $('.ui-panel-closed').length > 0 ){
+					// Mover boton del menu
+					$('.menu_trigger').addClass('open');
+					return;
+				}
+				$('.menu_trigger').removeClass('open');
+			});
 			
-
-			
-
-			
-
-
 
 
 		});

@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8" />
 		<meta name="format-detection" content="telephone=no" />
-		<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+		<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height" />
 		
 		
 		<!-- Load main styles and scripts -->
@@ -88,7 +88,7 @@
 					$.getJSON('http://viveelcentro.mx/feed-single/?id='+id, function(data){
 							if( !data ) location.reload();
 						$.each(data, function(key, value){
-
+							console.log(value);
 							if( value.imagenes == 'http://viveelcentro.mx/wp-includes/images/crystal/default.png' ){
 								value.imagenes = 'images/noimg.jpg'
 							}
@@ -118,8 +118,10 @@
 								if( image_url == 'http://viveelcentro.mx/wp-includes/images/crystal/default.png' ){
 									image_url = 'images/noimg.jpg'
 								}
+								var this_recorrido = value.ID,
+									this_descripcion = i;
 
-								lugares_html += '<article class="each_lugar" data-role="none"> <a href="lugar-single.html?id='+lugar_id+'" rel="external"> <img src="'+image_url+'" alt="'+title+'"> <div class="info_container"> <h3>'+title+'</h3></div></a></article>';
+								lugares_html += '<article class="each_lugar" data-role="none"> <a href="lugar-single.html?id='+lugar_id+'&recorrido='+this_recorrido+'&descripcion='+this_descripcion+'" rel="external"> <img src="'+image_url+'" alt="'+title+'"> <div class="info_container"> <h3>'+title+'</h3></div></a></article>';
 							}
 
 							//Lugares del recorrido
