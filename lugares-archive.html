@@ -93,7 +93,6 @@
 				var cat  = getUrlVars()["cat"];
 				cat      = cat.replace(/-/g, ' '); 
 				
-				console.log(cat);
 				$('.insert_cat_name').text(cat);
 				
 				$.getJSON('http://viveelcentro.mx/feeds/?type=lugares&cat='+cat, function(data){

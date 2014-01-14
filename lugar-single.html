@@ -112,7 +112,7 @@
 						horario   = ( value.horario ) ? '<span class="horario"></span><p>'+value.horario+'</p> ' : '',
 						ubicacion = ( value.precio ) ? '<span class="costo"></span><p>'+value.precio+'</p> ' : '';
 
-					$('.lugar_single').append('<h3>'+value.titulo+'</h3> <ul class="cycle-gallery">'+images_html+'</ul> <div class="cycle-pager"></div> <div class="info_container"> <p>'+value.contenido+'</p> '+horario+ubicacion+'<p>Zona: '+value.term[1]+'</p><a href="http://maps.apple.com/?q='+latlong+'"><img class="map_static" src="http://maps.googleapis.com/maps/api/staticmap?center='+latlong+'&zoom=17&size=320x220&sensor=true&markers=color:red%7Clabel:A%7C'+latlong+'&size=320x220"></a></div>'); 
+					$('.lugar_single').append('<h3>'+value.titulo+'</h3> <ul class="cycle-gallery">'+images_html+'</ul> <div class="cycle-pager"></div> <div class="info_container"> <p>'+value.contenido+'</p> '+horario+ubicacion+'<p>Zona: '+value.term[1]+'</p><a href="http://maps.apple.com/?q='+latlong+'"><img class="map_static" src="http://maps.googleapis.com/maps/api/staticmap?center='+latlong+'&zoom=17&size=320x220&sensor=true&markers=color:red%7Clabel:A%7C'+latlong+'&size=320x220&key=AIzaSyBpRDGroBfBHDWHllH-WvT_5vcYrmdPPvE"></a></div>'); 
 							
 					});
 

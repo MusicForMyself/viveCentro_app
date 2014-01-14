@@ -22,7 +22,7 @@
 	</head>
 	<body>
 		<div data-role="page">
-			
+			<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyBpRDGroBfBHDWHllH-WvT_5vcYrmdPPvE"></script>
 		<div data-role="panel" class="menu_panel" id="menu_panel" data-position="left" data-display="push">
 			
 			<ul>
@@ -51,29 +51,18 @@
 			</header><!-- logo_home -->
 
 			<section data-role="content">
-				<section class="post_feed">
+				<section class="map_feed">
 					
-					<article class="recorrido_single" data-role="none">
-							
-							
-					</article><!-- each_recorrido -->
-					
-					<section class="lugares_container">
-
-						<!-- Loop lugares del recorrido -->
-
-						
-
-					</section><!-- lugares_container -->
-
+					<div id="map-canvas"></div>
+	
 				</section><!-- post_feed -->
 
 			</section><!-- content -->
 			
 			<nav class="bottom_nav" data-role="footer"  data-position="fixed" data-visible-on-page-show="false" data--tap-toggle="false">
 				<ul>
-					<li class="info active">info</li>
-					<a class="map_link" href="" rel="external"><li class="map">mapa</li></a>
+					<a href="#" data-rel="back"><li class="info">info</li></a>
+					<a href="#" rel="external"><li class="map active">mapa</li></a>
 					<li class="favorite ui-disabled">favorito</li>
 					<li class="share">compartir
 						<ul class="submenu rounded_corners_5">
@@ -86,67 +75,90 @@
 				</ul>
 			</nav>
 
-			<script>
+<script>
 
-				(function ($){
-					
-					function getUrlVars() {
-					    var vars = {};
-					    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
-					        vars[key] = value;
-					    });
-					    return vars;
-					}
+	(function ($){
+		
+		function getUrlVars() {
+		    var vars = {};
+		    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+		        vars[key] = value;
+		    });
+		    return vars;
+		}
 
-					var id  = getUrlVars()["id"];
+		var id  = getUrlVars()["id"];
 
-					$.getJSON('http://viveelcentro.mx/feed-single/?id='+id, function(data){
-							if( !data ) location.reload();
-						$.each(data, function(key, value){
+		$.getJSON('http://viveelcentro.mx/feed-recorrido/?id='+id, function(data){
 
-							if( value.imagenes == 'http://viveelcentro.mx/wp-includes/images/crystal/default.png' ){
-								value.imagenes = 'images/noimg.jpg'
-							}
+			if( !data ) location.reload();
 
-							$('.map_link').attr( 'href', 'map.html?id='+value.ID );
-							//Content Recorrido
-							$('.recorrido_single').append(
-								'<img src="'+value.imagenes+'" alt="'+value.autor+'"> <div class="info_container"> <h3>'+value.titulo+'</h3> <h4>'+value.autor+'</h4> <p>'+value.contenido+'</p> </div>'); 
+			var coordinates = {
+				mid_points : data.puntos_medios,
+				start      : data.inicio,
+				end        : data.destino
+			};
 
-							lugares_array = value.lugares;
-
-							
-							var lugares_html =[];
-
-							for( i = 0; i< lugares_array.length; i++ ){
+			// console.dir(coordinates);
+			initialize( coordinates );
 
 
-								this_object = lugares_array[i];
+		});
 
-								image_url = this_object.imagen_lugar;
-								title     = this_object.lugar;
-								lugar_id  = this_object.ID;
+		var directionsDisplay;
+		var directionsService = new google.maps.DirectionsService();
+		var map;
 
-								var title_parts = title.split("<!--:-->");
 
-								title = title_parts[1].substring(10);
+		function initialize( coordinates ) {
+			
+			directionsDisplay = new google.maps.DirectionsRenderer();
+			var mapOptions = {
+				zoom: 17,
+				mapTypeId: google.maps.MapTypeId.ROADMAP
+			}
+			map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+			directionsDisplay.setMap(map);
 
-								if( image_url == 'http://viveelcentro.mx/wp-includes/images/crystal/default.png' ){
-									image_url = 'images/noimg.jpg'
-								}
-								var this_recorrido = value.ID,
-									this_descripcion = i;
+			calcRoute( coordinates );
+		}
+	
 
-								lugares_html += '<article class="each_lugar" data-role="none"> <a href="lugar-single.html?id='+lugar_id+'&recorrido='+this_recorrido+'&descripcion='+this_descripcion+'" rel="external"> <img src="'+image_url+'" alt="'+title+'"> <div class="info_container"> <h3>'+title+'</h3></div></a></article>';
-							}
+		function calcRoute( coordinates ) {
+			
+			var start  = new google.maps.LatLng(coordinates.start.lat, coordinates.start.long);
+			var end    = new google.maps.LatLng(coordinates.end.lat, coordinates.end.long);
 
-							//Lugares del recorrido
-							$('.lugares_container').append( lugares_html ); 
-						});
-					});
-				})(jQuery);
 
-			</script>
+			var waypts = $.map(coordinates.mid_points, function(place, index){
+				return { 
+					location: new google.maps.LatLng( place.lat, place.long),
+					stopover: true
+				};
+			});
+		
+
+			
+			
+			var request = {
+				origin            : start,
+				destination       : end,
+				waypoints         : waypts,
+				optimizeWaypoints : true,
+				travelMode        : google.maps.TravelMode.WALKING
+			};
+
+			directionsService.route(request, function(response, status) {
+				if (status == google.maps.DirectionsStatus.OK) {
+					directionsDisplay.setDirections(response);
+				}
+			});
+		}
+		
+
+	})(jQuery);
+
+</script>
 
 		</div><!-- data role page -->
 

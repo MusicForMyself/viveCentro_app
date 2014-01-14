@@ -122,7 +122,7 @@ header.logo_home img{width: 100%; height: auto; margin: 0;}
 [data-role=content]{padding: 55px 15px 70px 15px;}
 
 .overlay{position: absolute; width: 100%; height: 100%; background-color: #000; opacity: 0.4;  z-index: 1;}
-
+.rounded_corners_5{-webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px;}
 
 /*Backgrounds big square buttons*/
 
@@ -249,12 +249,16 @@ section h2{font-family: 'GothamBook'; font-size: 23px; font-weight: 300; color: 
 
 .map_static{width: 100%; height: auto; margin:0; padding:0; border: 1px solid #999999!important;}
 
-/*Bottom nav*/
+.map_feed{}
+#map-canvas{height: 550px; width: 100%;}
+
+/*Footer navigation*/
 .bottom_nav{width: 100%; margin: 0; padding: 0; background-color: #EAEAEA; border: none!important;}
 .bottom_nav ul{
     margin: 0;
     padding: 0;}
 .bottom_nav ul li{ float: left; width: 25%; min-height: 5rem; text-align: center; padding-top: 3.4rem; font-size: 1.2rem; list-style: none; text-transform: none; color: #9F9F9F; font-family: 'gotham-book'; font-weight: normal; background-image: url('images/bottom_menu_sprite.png'); background-repeat: no-repeat;}
+.bottom_nav ul a{ font-weight: normal!important;}
 .bottom_nav ul li.active{background-color: '#000'; background-color: black;}
 .bottom_nav ul li.map{background-position: 30px -65px;}
 .bottom_nav ul li.map.active{background-position: 30px -5px; background-color: black;}
@@ -264,6 +268,15 @@ section h2{font-family: 'GothamBook'; font-size: 23px; font-weight: 300; color: 
 .bottom_nav ul li.favorite.active{background-position: -168px -5px; background-color: black;}
 .bottom_nav ul li.info{background-position: -264px -65px;}
 .bottom_nav ul li.info.active{background-position: -264px -5px; background-color: black;}
+
+/*submenu*/
+.bottom_nav .submenu{display: none; position: absolute; bottom:55px; right:10px; width:18rem; overflow:visible; background-color:#EAEAEA;}
+.bottom_nav .submenu li{width: 33%;}
+.bottom_nav .submenu li.twitter_share{background-position: -347px -62px;}
+.bottom_nav .submenu li.facebook_share{background-position: -418px -62px;}
+.bottom_nav .submenu li.tumblr_share{background-position: -477px -62px;}
+.little_triangle{background-image: url('images/little_triangle.png'); background-repeat: no-repeat; background-position: center center; position: absolute; bottom:-.7rem; right: 3rem; width: 1.5rem; height: 1.5rem;}
+
 
 /*Recorrido-Lugar single*/
 .recorrido_single,
