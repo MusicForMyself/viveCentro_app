@@ -37,6 +37,7 @@
 			.on('panelbeforeclose', function(e,u){
 				e.preventDefault();
 				$('.menu_trigger').removeClass('open');
+				$('.the_header').css('position', 'fixed');
 				console.log('lol catz close');
 			});
 
