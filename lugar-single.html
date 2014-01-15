@@ -62,7 +62,25 @@
 					
 				</section><!-- post_feed -->
 
+
+
 			</section><!-- content -->
+
+			<nav class="bottom_nav" data-role="footer"  data-position="fixed" data-visible-on-page-show="false" data--tap-toggle="false">
+				<ul>
+					<a class="prev_lugar_link" href="" rel="external"><li class="prev_lugar">anterior</li></a>
+					<a class="next_lugar_link" href="" rel="external"><li class="next_lugar">siguiente</li></a>
+					<li class="favorite ui-disabled">favorito</li>
+					<li class="share">compartir
+						<ul class="submenu rounded_corners_5">
+							<li class="twitter_share"></li>
+							<li class="facebook_share"></li>
+							<li class="tumblr_share"></li>
+							<div class="little_triangle"></div>
+						</ul>
+					</li>
+				</ul>
+			</nav>
 		<script>
 
 			(function ($){
@@ -77,20 +95,20 @@
 
 				var id  = getUrlVars()["id"];
 				var images_array = [];
-				var recorrido = '', descripcion = '';
-
+				var recorrido = '', descripcion = '', map_url;
 
 				if( typeof(getUrlVars()["recorrido"]) != 'undefined' ){
-					recorrido   = '&recorrido='+getUrlVars()["recorrido"];
-					descripcion = '&descripcion='+getUrlVars()["descripcion"];
+					recorrido   = parseInt( getUrlVars()["recorrido"] );
+					recorrido_format   = '&recorrido='+recorrido;
+					descripcion = parseInt( getUrlVars()["descripcion"]);
+					descripcion_format = '&descripcion='+descripcion;
 				}
 				
-				var request_url = 'http://viveelcentro.mx/feed-single/?id='+id+recorrido+descripcion;
-				console.log(request_url);
-				// var request_url = 'http://viveelcentro.mx/feed-single/?id='+id;
+				var request_url = 'http://viveelcentro.mx/feed-single/?id='+id+recorrido_format+descripcion_format;
+				
 
 				$.getJSON( request_url, function(data){
-					console.log(data);
+					
 					if( !data ) location.reload();
 					$.each(data, function(key, value){
 
@@ -110,9 +128,11 @@
 					var latlong   = value.latlong.replace(/ /g,''),
 						horario   = ( value.horario ) ? '<span class="horario"></span><p>'+value.horario+'</p> ' : '',
 						ubicacion = ( value.precio ) ? '<span class="costo"></span><p>'+value.precio+'</p> ' : '';
+						
+						map_url   = '//maps.googleapis.com/maps/api/staticmap?center='+latlong+'&zoom=18&size=320x220&sensor=false&markers=color:red%7Clabel:A%7C'+latlong+'&size=320x220&key=AIzaSyBpRDGroBfBHDWHllH-WvT_5vcYrmdPPvE';
+					
+					$('.lugar_single').append('<h3>'+value.titulo+'</h3> <ul class="cycle-gallery">'+images_html+'</ul> <div class="cycle-pager"></div> <div class="info_container"> <p>'+value.contenido+'</p> '+horario+ubicacion+'<p>Zona: '+value.term[1]+'</p><a href="http://maps.apple.com/?q='+latlong+'"><img id="map_static" class="map_static" src="'+map_url+'"></a></div>'); 
 
-					$('.lugar_single').append('<h3>'+value.titulo+'</h3> <ul class="cycle-gallery">'+images_html+'</ul> <div class="cycle-pager"></div> <div class="info_container"> <p>'+value.contenido+'</p> '+horario+ubicacion+'<p>Zona: '+value.term[1]+'</p><a href="http://maps.apple.com/?q='+latlong+'"><img class="map_static" src="http://maps.googleapis.com/maps/api/staticmap?center='+latlong+'&zoom=17&size=320x220&sensor=true&markers=color:red%7Clabel:A%7C'+latlong+'&size=320x220&key=AIzaSyBpRDGroBfBHDWHllH-WvT_5vcYrmdPPvE"></a></div>'); 
-							
 					});
 
 					$('.cycle-gallery').cycle({
@@ -121,7 +141,39 @@
 						pager  : '.cycle-pager',
 						swipe  : true
 					});
+
+
+					var storage = window.localStorage;
+
+					var value = JSON.parse( storage.getItem('local_lugares_array') );
+
+					// Set prev/next links
+					if ( descripcion !== 0 ) {
+						var descripcion_prev = parseInt(descripcion)-1;
+						var id_prev = value[descripcion_prev].ID;
+						
+						var url_prev = 'lugar-single.html?id='+id_prev+'&recorrido='+recorrido+'&descripcion='+descripcion_prev;
+						$('.prev_lugar_link').attr('href', url_prev);
+
+					}else{
+						$('.prev_lugar').addClass('ui-disabled');
+					} 
+
+					if ( descripcion !== value.length-1 ) {
+						var descripcion_next = parseInt(descripcion)+1;
+						var id_next          = value[descripcion_next].ID;
+
+						var url_next = 'lugar-single.html?id='+id_next+'&recorrido='+recorrido+'&descripcion='+descripcion_next;
+						$('.next_lugar_link').attr('href', url_next);
+
+					}else{
+						$('.next_lugar').addClass('ui-disabled');
+					} 
+
+
+					
 				});
+
 				
 			})(jQuery);
 			

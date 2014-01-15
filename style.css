@@ -269,6 +269,13 @@ section h2{font-family: 'GothamBook'; font-size: 23px; font-weight: 300; color: 
 .bottom_nav ul li.info{background-position: -264px -65px;}
 .bottom_nav ul li.info.active{background-position: -264px -5px; background-color: black;}
 
+.bottom_nav ul li.prev_lugar,
+.bottom_nav ul li.next_lugar{background-image: url('images/arrows_sprite.png');}
+.bottom_nav ul li.prev_lugar{background-position: 17px -65px;}
+.bottom_nav ul li.prev_lugar.active{background-position: -264px -5px; background-color: black;}
+.bottom_nav ul li.next_lugar{background-position: -80px -65px;}
+.bottom_nav ul li.next_lugar.active{background-position: -264px -5px; background-color: black;}
+
 /*submenu*/
 .bottom_nav .submenu{display: none; position: absolute; bottom:55px; right:10px; width:18rem; overflow:visible; background-color:#EAEAEA;}
 .bottom_nav .submenu li{width: 33%;}

@@ -114,6 +114,7 @@
 								'<img src="'+value.imagenes+'" alt="'+value.autor+'"> <div class="info_container"> <h3>'+value.titulo+'</h3> <h4>'+value.autor+'</h4> <p>'+value.contenido+'</p> </div>'); 
 
 							lugares_array = value.lugares;
+							lugares_array_JSON = JSON.stringify( lugares_array );
 
 							
 							var lugares_html =[];
@@ -142,6 +143,10 @@
 
 							//Lugares del recorrido
 							$('.lugares_container').append( lugares_html ); 
+							var storage = window.localStorage;
+
+							storage.removeItem('local_lugares_array' );
+							storage.setItem('local_lugares_array', lugares_array_JSON );
 						});
 					});
 				})(jQuery);
