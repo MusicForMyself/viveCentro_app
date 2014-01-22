@@ -64,8 +64,6 @@
 					var user_id   = window.localStorage.getItem('fb_login_id');
 					var this_post = window.localStorage.getItem('this_post_id');
 
-					console.log(user_id);
-					console.log(this_post);
 					var result = postFavorite( user_id, this_post );
 
 					result.done(function (response){
@@ -113,7 +111,7 @@
 
 		console.log('user: '+ user_id + 'wants to favorite post: '+ a_post );
 
-		return $.getJSON('http://viveelcentro.mx/agregar-favorito/?user_id='+user_id+'&post_id='+ a_post, function(data){
+		return $.getJSON('http://viveelcentro.mx/agregar-favorito/?user_id='+user_id+'&post_id='+a_post, function(data){
 				if( !data ) location.reload();
 				console.log(data);
 			
