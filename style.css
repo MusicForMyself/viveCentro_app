@@ -123,12 +123,16 @@ header.logo_home img{width: 100%; height: auto; margin: 0;}
 
 .overlay{position: absolute; width: 100%; height: 100%; background-color: #000; opacity: 0.4;  z-index: 1;}
 .rounded_corners_5{-webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px;}
+.margin_top_10{margin-top: 3rem;}
 
 /*Backgrounds big square buttons*/
 
 
     .recorridos_bg{background-color: #C0CD30!important;}
     a.ui-btn.big_square.recorridos_bg{background-image: url('images/recorridos_home.png');}
+
+    .favoritos_bg{background-color: #B5C230!important;}
+    a.ui-btn.big_square.favoritos_bg{background-image: url('images/favoritos_home.png');}
 
     .zonas_bg{background-color: #FCC500!important;}
     a.ui-btn.big_square.zonas_bg{background-image: url('images/zonas_home.png');}
@@ -187,6 +191,11 @@ header.logo_home img{width: 100%; height: auto; margin: 0;}
     .comida_bg{background-color: #811E5F!important;}
     a.ui-btn.big_square.comida_bg{background-image: url('images/comida.png');}
 
+    .facebook_bg{background-color: #3C5A97!important;}
+    a.ui-btn.big_square.facebook_bg{background-image: url('images/facebook.png'); margin: 0 auto!important; float: none;}
+    .ui-content.register p{color: #4E4E4E; text-align: center; margin-top: 0; text-transform: none; font-size: 2rem; font-family: 'GothamBook';}
+    .ui-content.register p.small{font-family: 'GothamMedium'; font-size: 1rem; text-transform: uppercase; margin-top: 1rem;}
+
     a.ui-btn.big_square,
     a.ui-btn.big_square:hover {
         background-repeat: no-repeat!important;
@@ -201,8 +210,10 @@ header.the_header h1.ui-title{width: 92%; color: #4e4e4e; text-align: center; fo
 
 /*Jquery mobile overrides*/
 .ui-btn span{ color: #FFF!important;}
+.ui-panel-animate.ui-panel-content-fixed-toolbar-position-left.ui-panel-content-fixed-toolbar-open.ui-panel-content-fixed-toolbar-display-push{margin-left: 0;}
 a.ui-btn.big_square{ display: block; width: 48%; height: 150px; float: left; margin-right: 3%; border: none;}
-a.ui-btn.big_square:nth-child(even){margin-right: 0;}
+a.ui-btn.big_square:nth-child(even){
+    margin-right: 0;}
 .menu_trigger{ display: block; width: 30px; height: 35px; padding:10px; background: url('images/menu_trigger.png') no-repeat center center; top: 8px!important; left: 13px!important; background-size: contain;}
 .open{ left: -3em!important; background: url('images/menu_trigger_white.png') no-repeat center center;}
 .ui-panel-inner{margin: 0;padding: 0;}
@@ -271,9 +282,9 @@ section h2{font-family: 'GothamBook'; font-size: 23px; font-weight: 300; color: 
 
 .bottom_nav ul li.prev_lugar,
 .bottom_nav ul li.next_lugar{background-image: url('images/arrows_sprite.png');}
-.bottom_nav ul li.prev_lugar{background-position: 17px -65px;}
+.bottom_nav ul li.prev_lugar{background-position: 17px -65px;display: none;}
 .bottom_nav ul li.prev_lugar.active{background-position: -264px -5px; background-color: black;}
-.bottom_nav ul li.next_lugar{background-position: -80px -65px;}
+.bottom_nav ul li.next_lugar{background-position: -80px -65px;visibility: hidden;}
 .bottom_nav ul li.next_lugar.active{background-position: -264px -5px; background-color: black;}
 
 /*submenu*/
