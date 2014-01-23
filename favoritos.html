@@ -79,7 +79,6 @@
 		<script type="text/javascript" src="cordova.js"></script>
 		<script type="text/javascript" src="phonegap.js"></script>
 		<script type="text/javascript" src="js/index.js"></script>
-		<script type="text/javascript" src="js/facebook.js"></script>
 		<script type="text/javascript" src="js/plugins.js"></script>
 		<script type="text/javascript" src="js/functions.js"></script>
 
@@ -92,22 +91,24 @@
 				var storage = window.localStorage;
 
 				if ( checkFBuser() ){
-
+					console.log('lol catz');
 					var user_id = storage.getItem('fb_login_id');
 
 					$.getJSON('http://viveelcentro.mx/feed-favoritos/?user_id='+user_id, function(data){
 						
 						if( !data ) location.reload();
-						console.log(data);
+						// console.log(data);
 						$.each(data, function(key, value){
-							console.log('lol catz');
+
 							if( value.imagen == 'http://vivecentro.hacemoscodigo.com/wp-includes/images/crystal/default.png' ){
 								value.imagen = 'images/noimg.jpg'
 							}
+
 						$('.lugares_container').append('<article class="each_lugar" data-role="none"><a href="lugar-single.html?id='+value.ID+'" rel="external"> <img src="'+value.imagen+'" alt="'+value.titulo+'"> <div class="info_container"> <h3>'+value.titulo+'</h3> </div> </a> </article>'); });
 					});
-
+					return;
 				}
+				// vivecentroFB.loginFacebookUser();
 
 			})(jQuery);
 

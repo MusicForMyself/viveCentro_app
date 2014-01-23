@@ -33,8 +33,6 @@
 				$('.the_header').css('position', 'fixed');
 				
 			});
-
-
 			
 			$('.share').on('click', function(){
 				//Desplegar el pop de share
@@ -101,15 +99,16 @@
 		var storage = window.localStorage;
 		var user_id = storage.getItem('fb_login_id');
 
-		if( user_id !== 'not_logged' || typeof( user_id ) !== 'undefined' ){
-			return true;
+		if( user_id == 'not_logged' || !user_id ){
+			
+			return false;
 		}
 		vivecentroFB.loginFacebookUser();
 	}
 
 	window.postFavorite = function( user_id, a_post ){
 
-		console.log('user: '+ user_id + 'wants to favorite post: '+ a_post );
+		console.log('User: '+ user_id + ' wants to favorite post: '+ a_post );
 
 		return $.getJSON('http://viveelcentro.mx/agregar-favorito/?user_id='+user_id+'&post_id='+a_post, function(data){
 				if( !data ) location.reload();
