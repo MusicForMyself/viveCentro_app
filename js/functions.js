@@ -3,11 +3,44 @@
 	"use strict";
 
 	$(function(){
-		// Check if user has set a login option
-		if( typeof(on_index)!== 'undefined' && window.localStorage.getItem('fb_login_id') ){
-			goHome();
+
+		// GLOBAL FUNCTIONS
+		window.goHome = function(){
+			window.location = 'home.html';
 		}
 
+		window.getUrlVars = function() {
+		    var vars = {};
+		    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+		        vars[key] = value;
+		    });
+		    return vars;
+		}
+		
+		
+		window.checkFBuser = function (){
+			var storage = window.localStorage;
+			var user_id = storage.getItem('fb_login_id');
+
+			if( user_id == 'not_logged' || !user_id ){
+				
+				return false;
+			}
+			// vivecentroFB.loginFacebookUser();
+			return true;
+		}
+
+		window.postFavorite = function( user_id, a_post ){
+
+			console.log('User: '+ user_id + ' wants to favorite post: '+ a_post );
+
+			return $.getJSON('http://viveelcentro.mx/agregar-favorito/?user_id='+user_id+'&post_id='+a_post, function(data){
+					if( !data ) location.reload();
+					console.log(data);
+				
+			});
+		
+		}
 
 		$('.not_round').buttonMarkup({ corners: false });
 
@@ -47,7 +80,7 @@
 			// Login with facebook events
 			$('#login_fb').on('click', function(){
 				vivecentroFB.loginFacebookUser();
-				goHome();
+				// goHome();
 			});
 
 			$('#not_login_fb').on('click', function(){
@@ -78,45 +111,16 @@
 				
 			});
 
+
+			
+
+
 		});
 
-
+			
 	});
 
-	window.getUrlVars = function() {
-	    var vars = {};
-	    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
-	        vars[key] = value;
-	    });
-	    return vars;
-	}
 	
-	window.goHome = function(){
-		window.location = 'home.html';
-	}
-
-	window.checkFBuser = function (){
-		var storage = window.localStorage;
-		var user_id = storage.getItem('fb_login_id');
-
-		if( user_id == 'not_logged' || !user_id ){
-			
-			return false;
-		}
-		vivecentroFB.loginFacebookUser();
-	}
-
-	window.postFavorite = function( user_id, a_post ){
-
-		console.log('User: '+ user_id + ' wants to favorite post: '+ a_post );
-
-		return $.getJSON('http://viveelcentro.mx/agregar-favorito/?user_id='+user_id+'&post_id='+a_post, function(data){
-				if( !data ) location.reload();
-				console.log(data);
-			
-		});
-	
-	}
 	
 
 })(jQuery);

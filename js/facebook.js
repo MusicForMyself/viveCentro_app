@@ -6,6 +6,8 @@
 	|_|  \__,_|\___\___|_.__/ \___/ \___/|_|\_\
 
  **************************************************/
+// todo: revisar callback del login
+// El feed de favoritos trae los titulos sin sanizarlos de idioma 
 
 
 
@@ -37,8 +39,9 @@
 
 
 		vivecentroFB.loginCallback = function (response) {
+			
 			if (response.status === 'connected') {
-
+				
 				$('body').removeClass('no-facebook');
 				vivecentroFB.save_login_data();
 			} else if (response.status == 'not_authorized') {
@@ -52,6 +55,7 @@
 
 		vivecentroFB.loginFacebookUser = function (){
 			FB.login( vivecentroFB.loginCallback, vivecentroFB.Scope );
+
 		};
 
 
@@ -83,11 +87,15 @@
 		// Functions
 		vivecentroFB.save_login_data = function () {
 			FB.api('/me', function(response) {
+    
 				var storage = window.localStorage;
 				var user_ID = response.id;
 				storage.setItem('fb_login_id', user_ID );
 				
 				console.log('Good to see you, ' + response.name + '.');
+				if( typeof(on_index)!== 'undefined' && window.localStorage.getItem('fb_login_id') ){
+					goHome();
+				}
 			});
 		}
 
@@ -181,11 +189,17 @@
 
 
 		vivecentroFB.getLoginStatusCallback = function (response){
+			
 			if (response.status === 'connected') { // mostrar contenido exclusivo para usuarios que autorizaron
-
+				
+				console.log('esta conectao');
+				if( typeof(on_index)!== 'undefined' && window.localStorage.getItem('fb_login_id') ){
+					goHome();
+				}
 				$('body').removeClass('no-facebook');
 			} else {
-				vivecentroFB.loginFacebookUser();
+
+				console.log('esta desconectao');
 				$('body').addClass('no-facebook');
 			}
 		};

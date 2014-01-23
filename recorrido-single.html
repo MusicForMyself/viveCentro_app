@@ -28,7 +28,7 @@
 
 				<li class="clearfix">
 
-					<a href="favoritos.html" rel="external" class="big_square favoritos_bg not_round" data-role="button" data-theme="a"></a>
+					<a href="favoritos.html" class="big_square favoritos_bg not_round" data-role="button" data-theme="a"></a>
 
 					<a href="zonas.html" rel="external" class="big_square zonas_bg not_round " data-role="button" data-theme="a"></a>
 
@@ -82,82 +82,82 @@
 					</li>
 				</ul>
 			</nav>
+			
+<!-- Load this page scripts -->
+<script type="text/javascript" src="cordova.js"></script>
+<script type="text/javascript" src="js/plugins.js"></script>
+<script type="text/javascript" src="js/functions.js"></script>
 
-			<script>
+<script>
 
-				(function ($){
-					
-					function getUrlVars() {
-					    var vars = {};
-					    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
-					        vars[key] = value;
-					    });
-					    return vars;
-					}
+(function ($){
+	
+	function getUrlVars() {
+	    var vars = {};
+	    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+	        vars[key] = value;
+	    });
+	    return vars;
+	}
 
-					var id  = getUrlVars()["id"];
+	var id  = getUrlVars()["id"];
 
-					$.getJSON('http://viveelcentro.mx/feed-single/?id='+id, function(data){
-							if( !data ) location.reload();
-						$.each(data, function(key, value){
+	$.getJSON('http://viveelcentro.mx/feed-single/?id='+id, function(data){
+			if( !data ) location.reload();
+		$.each(data, function(key, value){
 
-							if( value.imagenes == 'http://viveelcentro.mx/wp-includes/images/crystal/default.png' ){
-								value.imagenes = 'images/noimg.jpg'
-							}
+			if( value.imagenes == 'http://viveelcentro.mx/wp-includes/images/crystal/default.png' ){
+				value.imagenes = 'images/noimg.jpg'
+			}
 
-							$('.map_link').attr( 'href', 'map.html?id='+value.ID );
-							//Content Recorrido
-							$('.recorrido_single').append(
-								'<img src="'+value.imagenes+'" alt="'+value.autor+'"> <div class="info_container"> <h3>'+value.titulo+'</h3> <h4>'+value.autor+'</h4> <p>'+value.contenido+'</p> </div>'); 
+			$('.map_link').attr( 'href', 'map.html?id='+value.ID );
+			//Content Recorrido
+			$('.recorrido_single').append(
+				'<img src="'+value.imagenes+'" alt="'+value.autor+'"> <div class="info_container"> <h3>'+value.titulo+'</h3> <h4>'+value.autor+'</h4> <p>'+value.contenido+'</p> </div>'); 
 
-							lugares_array = value.lugares;
-							lugares_array_JSON = JSON.stringify( lugares_array );
+			lugares_array = value.lugares;
+			lugares_array_JSON = JSON.stringify( lugares_array );
 
-							
-							var lugares_html =[];
+			
+			var lugares_html =[];
 
-							for( i = 0; i< lugares_array.length; i++ ){
+			for( i = 0; i< lugares_array.length; i++ ){
 
 
-								this_object = lugares_array[i];
+				this_object = lugares_array[i];
 
-								image_url = this_object.imagen_lugar;
-								title     = this_object.lugar;
-								lugar_id  = this_object.ID;
+				image_url = this_object.imagen_lugar;
+				title     = this_object.lugar;
+				lugar_id  = this_object.ID;
 
-								var title_parts = title.split("<!--:-->");
+				var title_parts = title.split("<!--:-->");
 
-								title = title_parts[1].substring(10);
+				title = title_parts[1].substring(10);
 
-								if( image_url == 'http://viveelcentro.mx/wp-includes/images/crystal/default.png' ){
-									image_url = 'images/noimg.jpg'
-								}
-								var this_recorrido = value.ID,
-									this_descripcion = i;
+				if( image_url == 'http://viveelcentro.mx/wp-includes/images/crystal/default.png' ){
+					image_url = 'images/noimg.jpg'
+				}
+				var this_recorrido = value.ID,
+					this_descripcion = i;
 
-								lugares_html += '<article class="each_lugar" data-role="none"> <a href="lugar-single.html?id='+lugar_id+'&recorrido='+this_recorrido+'&descripcion='+this_descripcion+'" rel="external"> <img src="'+image_url+'" alt="'+title+'"> <div class="info_container"> <h3>'+title+'</h3></div></a></article>';
-							}
+				lugares_html += '<article class="each_lugar" data-role="none"> <a href="lugar-single.html?id='+lugar_id+'&recorrido='+this_recorrido+'&descripcion='+this_descripcion+'" rel="external"> <img src="'+image_url+'" alt="'+title+'"> <div class="info_container"> <h3>'+title+'</h3></div></a></article>';
+			}
 
-							//Lugares del recorrido
-							$('.lugares_container').append( lugares_html ); 
-							var storage = window.localStorage;
+			//Lugares del recorrido
+			$('.lugares_container').append( lugares_html ); 
+			var storage = window.localStorage;
 
-							storage.removeItem('local_lugares_array' );
-							storage.setItem('local_lugares_array', lugares_array_JSON );
-						});
-					});
-				})(jQuery);
+			storage.removeItem('local_lugares_array' );
+			storage.setItem('local_lugares_array', lugares_array_JSON );
+		});
+	});
+})(jQuery);
 
-			</script>
+</script>
 
 		</div><!-- data role page -->
 
-		<script type="text/javascript" src="cordova.js"></script>
-		<script type="text/javascript" src="phonegap.js"></script>
-		<script type="text/javascript" src="js/index.js"></script>
-		<script type="text/javascript" src="js/facebook.js"></script>
-		<script type="text/javascript" src="js/plugins.js"></script>
-		<script type="text/javascript" src="js/functions.js"></script>
+		
 
 	</body>
 </html>

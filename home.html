@@ -11,9 +11,8 @@
 		<script src="js/jquery-1.9.1.min.js"></script> 
 		<script src="js/jquery.mobile-1.3.2.min.js"></script>
 		<script type="text/javascript" src="cordova.js"></script>
-		<script type="text/javascript" src="phonegap.js"></script>
-		<script type="text/javascript" src="js/index.js"></script>
-		<script type="text/javascript" src="js/facebook.js"></script>
+
+
 		<script type="text/javascript" src="js/plugins.js"></script>
 		<script type="text/javascript" src="js/functions.js"></script>
 
@@ -25,6 +24,7 @@
 		<title>Vive #en el centro</title>
 	</head>
 	<body>
+		<div id="fb-root"></div>
 		<div data-role="page" data-theme="a">
 		
 			<header class="logo_home">
@@ -33,20 +33,17 @@
 
 			<section data-role="content">
 				
-				<a href="recorridos.html" rel="external" class="big_square recorridos_bg not_round" data-role="button" data-theme="a"></a>
-				<a href="zonas.html" rel="external" class="big_square zonas_bg not_round " data-role="button" data-theme="a"></a>
-				<a href="actividades.html" rel="external" class="big_square actividades_bg not_round" data-role="button" data-theme="a"></a>
-				<a href="lugares.html" rel="external" class="big_square lugares_bg not_round " data-role="button" data-theme="a"></a>
+				<a href="recorridos.html" class="big_square recorridos_bg not_round" data-role="button" data-theme="a"></a>
+				<a href="zonas.html" class="big_square zonas_bg not_round " data-role="button" data-theme="a"></a>
+				<a href="actividades.html" class="big_square actividades_bg not_round" data-role="button" data-theme="a"></a>
+				<a href="lugares.html" class="big_square lugares_bg not_round " data-role="button" data-theme="a"></a>
 
 			</section><!-- content -->
 
 		</div>
 		
 		<!-- Load this page scripts -->
-		
-		<script type="text/javascript">
-			app.initialize();
-		</script>
+	
 		
 	</body>
 </html>
