@@ -11,8 +11,6 @@
 		<script src="js/jquery-1.9.1.min.js"></script> 
 		<script src="js/jquery.mobile-1.3.2.min.js"></script>
 
-		
-
 		<!-- styles -->
 		<link rel="stylesheet" href="css/vivecentro.css" />
 	   	<link rel="stylesheet" type="text/css" href="style.css" />
@@ -31,13 +29,13 @@
 
 				<li class="clearfix">
 
-					<a href="recorridos.html" rel="external" class="big_square recorridos_bg not_round" data-role="button" data-theme="a"></a>
+					<a href="recorridos.html" class="big_square recorridos_bg not_round" data-role="button" data-theme="a"></a>
 
-					<a href="zonas.html" rel="external" class="big_square zonas_bg not_round " data-role="button" data-theme="a"></a>
+					<a href="zonas.html" class="big_square zonas_bg not_round " data-role="button" data-theme="a"></a>
 
-					<a href="actividades.html" rel="external" class="big_square actividades_bg not_round" data-role="button" data-theme="a"></a>
+					<a href="actividades.html" class="big_square actividades_bg not_round" data-role="button" data-theme="a"></a>
 
-					<a href="lugares.html" rel="external" class="big_square lugares_bg not_round " data-role="button" data-theme="a"></a>
+					<a href="lugares.html" class="big_square lugares_bg not_round " data-role="button" data-theme="a"></a>
 
 				</li>
 			</ul>
@@ -46,7 +44,8 @@
 
 			<header class="the_header" data-role="header" data-position="fixed" data-visible-on-page-show="false" data--tap-toggle="false">
 				<a href="#menu_panel" class="menu_trigger" id="menu_trigger" data-role="none"></a>
-				<h1><a href="#" rel="external">Actividades</a></h1>
+				<h1><a href="#">Actividades</a></h1>
+				<a href="favoritos.html" class="favorites_trigger" data-role="none"></a>
 			</header><!-- logo_home -->
 
 			<section data-role="content">
@@ -63,52 +62,44 @@
 				</section><!-- post_feed -->
 
 			</section><!-- content -->
-		<script>
 
-			(function ($){
+<!-- Load this page scripts -->
+<script type="text/javascript" src="cordova.js"></script>
+<script type="text/javascript" src="js/functions.js"></script>
+<script>
+
+(function ($){
+	
+	$(document).ready( function(){
+
+		var id  = getUrlVars()["ID"];
+		var request_url = 'http://viveelcentro.mx/feed-single/?id='+id;
+
+		$.getJSON( request_url, function(data){
+			if( !data ) location.reload();
+			$.each(data, function(key, value){
 				
-				function getUrlVars() {
-				    var vars = {};
-				    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
-				        vars[key] = value;
-				    });
-				    return vars;
-				}
+			if( value.imagenes == 'http://viveelcentro.mx/wp-includes/images/crystal/default.png' ){
 
-				var id  = getUrlVars()["ID"];
-				
-				
-				var request_url = 'http://viveelcentro.mx/feed-single/?id='+id;
+				value.imagenes = 'images/noimg.jpg'
+			}
 
-				$.getJSON( request_url, function(data){
-					//if( !data ) location.reload();
-					$.each(data, function(key, value){
-						
-					if( value.imagenes == 'http://viveelcentro.mx/wp-includes/images/crystal/default.png' ){
+			var latlong = value.latlong.replace(/ /g,'');
 
-						value.imagenes = 'images/noimg.jpg'
-					}
-
-					var latlong = value.latlong.replace(/ /g,'');
-
-					$('.lugar_single').append('<h3>'+value.titulo+'</h3> <div class="info_container"> <img class="actividades_img" src="'+value.imagenes+'" ><p>'+value.contenido+'</p> </div>'); 
-							
-					});
-
+			$('.lugar_single').append('<h3>'+value.titulo+'</h3> <div class="info_container"> <img class="actividades_img" src="'+value.imagenes+'" ><p>'+value.contenido+'</p> </div>'); 
 					
-				});
-				
-			})(jQuery);
-			
-		</script>
+			});
+
+		});
+
+	});
+
+	
+})(jQuery);
+
+</script>
+
 		</div> <!-- data-role page -->
 
-
-		<!-- Load this page scripts -->
-		<script type="text/javascript" src="cordova.js"></script>
-		<script type="text/javascript" src="phonegap.js"></script>
-		<script type="text/javascript" src="js/index.js"></script>
-		<script type="text/javascript" src="js/plugins.js"></script>
-		<script type="text/javascript" src="js/functions.js"></script>
 	</body>
 </html>

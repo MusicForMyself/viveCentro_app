@@ -28,13 +28,13 @@
 
 				<li class="clearfix">
 
-					<a href="favoritos.html" class="big_square favoritos_bg not_round" data-role="button" data-theme="a"></a>
+					<a href="recorridos.html" class="big_square recorridos_bg not_round" data-role="button" data-theme="a"></a>
 
-					<a href="zonas.html" rel="external" class="big_square zonas_bg not_round " data-role="button" data-theme="a"></a>
+					<a href="zonas.html" class="big_square zonas_bg not_round " data-role="button" data-theme="a"></a>
 
-					<a href="actividades.html" rel="external" class="big_square actividades_bg not_round" data-role="button" data-theme="a"></a>
+					<a href="actividades.html" class="big_square actividades_bg not_round" data-role="button" data-theme="a"></a>
 
-					<a href="lugares.html" rel="external" class="big_square lugares_bg not_round " data-role="button" data-theme="a"></a>
+					<a href="lugares.html" class="big_square lugares_bg not_round " data-role="button" data-theme="a"></a>
 
 				</li>
 			</ul>
@@ -44,7 +44,8 @@
 
 			<header class="the_header" data-role="header" data-position="fixed" data-visible-on-page-show="false" data--tap-toggle="false">
 				<a href="#menu_panel" class="menu_trigger" id="menu_trigger" data-role="none"></a>
-				<h1><a href="#" rel="external">Recorridos</a></h1>
+				<h1><a href="#">Recorridos</a></h1>
+				<a href="favoritos.html" class="favorites_trigger" data-role="none"></a>
 			</header><!-- logo_home -->
 
 			<section data-role="content">
@@ -71,7 +72,7 @@
 				<ul>
 					<li class="info active">info</li>
 					<a class="map_link" href="" rel="external"><li class="map">mapa</li></a>
-					<li class="favorite ui-disabled">favorito</li>
+					<li class="favorite">favorito</li>
 					<li class="share">compartir
 						<ul class="submenu rounded_corners_5">
 							<li class="twitter_share"></li>
@@ -85,22 +86,14 @@
 			
 <!-- Load this page scripts -->
 <script type="text/javascript" src="cordova.js"></script>
-<script type="text/javascript" src="js/plugins.js"></script>
 <script type="text/javascript" src="js/functions.js"></script>
 
 <script>
 
 (function ($){
 	
-	function getUrlVars() {
-	    var vars = {};
-	    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
-	        vars[key] = value;
-	    });
-	    return vars;
-	}
-
 	var id  = getUrlVars()["id"];
+	var storage = window.localStorage;
 
 	$.getJSON('http://viveelcentro.mx/feed-single/?id='+id, function(data){
 			if( !data ) location.reload();
@@ -117,7 +110,7 @@
 
 			lugares_array = value.lugares;
 			lugares_array_JSON = JSON.stringify( lugares_array );
-
+			storage.setItem('this_post_id', this_recorrido);
 			
 			var lugares_html =[];
 

@@ -16,27 +16,10 @@
 		<link rel="stylesheet" href="css/vivecentro.css" />
 	   	<link rel="stylesheet" type="text/css" href="style.css" />
 
-
 		<title>Vive #en el centro | Actividades</title>
 
-		<script>
-
-			(function ($){
-				
-				$.getJSON('http://viveelcentro.mx/feeds/?type=actividades', function(data){
-					if( !data ) location.reload();
-					$.each(data, function(key, value){
-
-						if( value.imagenes == 'http://viveelcentro.mx/wp-includes/images/crystal/default.png' ){
-							value.imagenes = 'images/noimg.jpg'
-						}
-						$('.lugares_container').append('<article class="each_lugar" data-role="none"><a href="actividades-single.html?ID='+value.ID+'" rel="external"> <img src="'+ value.imagenes +'" alt="Un lugar"> <div class="info_container"> <h3>'+ value.titulo +'</h3> </div> </a> </article>'); });
-
-				});
-			})(jQuery);
-
-		</script>
 	</head>
+
 	<body>
 		<div data-role="page">
 
@@ -48,13 +31,13 @@
 
 				<li class="clearfix">
 
-					<a href="recorridos.html" rel="external" class="big_square recorridos_bg not_round" data-role="button" data-theme="a"></a>
+					<a href="recorridos.html" class="big_square recorridos_bg not_round" data-role="button" data-theme="a"></a>
 
-					<a href="zonas.html" rel="external" class="big_square zonas_bg not_round " data-role="button" data-theme="a"></a>
+					<a href="zonas.html" class="big_square zonas_bg not_round " data-role="button" data-theme="a"></a>
 
-					<a href="actividades.html" rel="external" class="big_square actividades_bg not_round" data-role="button" data-theme="a"></a>
+					<a href="actividades.html" class="big_square actividades_bg not_round" data-role="button" data-theme="a"></a>
 
-					<a href="lugares.html" rel="external" class="big_square lugares_bg not_round " data-role="button" data-theme="a"></a>
+					<a href="lugares.html" class="big_square lugares_bg not_round " data-role="button" data-theme="a"></a>
 
 				</li>
 			</ul>
@@ -63,7 +46,8 @@
 
 			<header class="the_header" data-role="header" data-position="fixed" data-visible-on-page-show="false" data--tap-toggle="false">
 				<a href="#menu_panel" class="menu_trigger" id="menu_trigger" data-role="none"></a>
-				<h1><a href="#" rel="external">Actividades</a></h1>
+				<h1><a href="#">Actividades</a></h1>
+				<a href="favoritos.html" class="favorites_trigger" data-role="none"></a>
 			</header><!-- logo_home -->
 
 			<section data-role="content">
@@ -88,14 +72,29 @@
 
 			</section><!-- content -->
 
-		</div>
+<!-- Load this page scripts -->
+<script type="text/javascript" src="cordova.js"></script>
+<script type="text/javascript" src="js/functions.js"></script>
+<script>
 
-		<!-- Load this page scripts -->
-		<script type="text/javascript" src="cordova.js"></script>
-		<script type="text/javascript" src="phonegap.js"></script>
-		<script type="text/javascript" src="js/index.js"></script>
-		<script type="text/javascript" src="js/plugins.js"></script>
-		<script type="text/javascript" src="js/functions.js"></script>
+(function ($){
+	
+	$.getJSON('http://viveelcentro.mx/feeds/?type=actividades', function(data){
+		// console.log(data);
+		if( !data ) location.reload();
+		$.each(data, function(key, value){
+			
+			if( value.imagenes == 'http://viveelcentro.mx/wp-includes/images/crystal/default.png' ){
+				value.imagenes = 'images/noimg.jpg'
+			}
+			$('.lugares_container').append('<article class="each_lugar" data-role="none"><a href="actividades-single.html?ID='+value.ID+'"> <img src="'+ value.imagenes +'" alt="Un lugar"> <div class="info_container"> <h3>'+ value.titulo +'</h3> </div> </a> </article>'); });
+
+	});
+})(jQuery);
+
+</script>
+
+		</div><!-- page -->
 
 	</body>
 </html>

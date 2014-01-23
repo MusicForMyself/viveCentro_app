@@ -6,8 +6,6 @@
 	|_|  \__,_|\___\___|_.__/ \___/ \___/|_|\_\
 
  **************************************************/
-// todo: revisar callback del login
-// El feed de favoritos trae los titulos sin sanizarlos de idioma 
 
 
 

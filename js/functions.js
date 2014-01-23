@@ -45,13 +45,16 @@
 		$('.not_round').buttonMarkup({ corners: false });
 
 		$(document).ready(function(){
-			
+				
+			if( $('.cycle-gallery').length > 0 ){
 				$('.cycle-gallery').cycle({
 					slides : 'li',
 					fx     : 'scrollHorz',
 					pager  : '.cycle-pager',
 					swipe  : true
 				});
+			}
+				
 				
 
 			$('#menu_panel').on('panelbeforeopen', function(e,u){
@@ -62,8 +65,9 @@
 			})
 			.on('panelbeforeclose', function(e,u){
 				e.preventDefault();
-				$('.menu_trigger').removeClass('open');
 				$('.the_header').css('position', 'fixed');
+				$('.menu_trigger').removeClass('open');
+				
 				
 			});
 			

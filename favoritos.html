@@ -15,7 +15,6 @@
 		<link rel="stylesheet" href="css/vivecentro.css" />
 	   	<link rel="stylesheet" type="text/css" href="style.css" />
 		
-
 		<title>Vive #en el centro | Favoritos</title>
 		
 	</head>
@@ -30,13 +29,13 @@
 
 					<li class="clearfix">
 
-						<a href="recorridos.html" rel="external" class="big_square recorridos_bg not_round" data-role="button" data-theme="a"></a>
+						<a href="recorridos.html" class="big_square recorridos_bg not_round" data-role="button" data-theme="a"></a>
 
-						<a href="zonas.html" rel="external" class="big_square zonas_bg not_round " data-role="button" data-theme="a"></a>
+						<a href="zonas.html" class="big_square zonas_bg not_round " data-role="button" data-theme="a"></a>
 
-						<a href="actividades.html" rel="external" class="big_square actividades_bg not_round" data-role="button" data-theme="a"></a>
+						<a href="actividades.html" class="big_square actividades_bg not_round" data-role="button" data-theme="a"></a>
 
-						<a href="lugares.html" rel="external" class="big_square lugares_bg not_round " data-role="button" data-theme="a"></a>
+						<a href="lugares.html" class="big_square lugares_bg not_round " data-role="button" data-theme="a"></a>
 
 					</li>
 				</ul>
@@ -45,7 +44,7 @@
 
 			<header class="the_header" data-role="header" data-position="fixed" data-visible-on-page-show="false" data--tap-toggle="false">
 				<a href="#menu_panel" class="menu_trigger" id="menu_trigger" data-role="none"></a>
-				<h1 class="insert_cat_name">Mis Favoritos</h1>
+				<h1><a href="#">Mis Favoritos</a></h1>
 			</header><!-- logo_home -->
 
 			<section data-role="content">
@@ -74,39 +73,36 @@
 			</section><!-- content -->
 
 <!-- Load this page scripts -->
+<script type="text/javascript" src="cordova.js"></script>
 <script type="text/javascript" src="js/functions.js"></script>
 <script>
-
 (function ($){
-
+$(document).ready(function(){
 	var storage = window.localStorage;
 
 	if ( checkFBuser() ){
-		console.log('lol catz');
+		
 		var user_id = storage.getItem('fb_login_id');
 
 		$.getJSON('http://viveelcentro.mx/feed-favoritos/?user_id='+user_id, function(dataObj){
-			
-			if( !dataObj.success ) location.reload();
-			// console.log(dataObj);
-			$.each(dataObj.data.post_favoritos, function(key, value){
 
-				if( value.imagen == 'http://vivecentro.hacemoscodigo.com/wp-includes/images/crystal/default.png' ){
+			$.each(dataObj, function(key, value){
+
+				if( value.imagen == 'http://viveelcentro.mx/wp-includes/images/crystal/default.png' ){
 					value.imagen = 'images/noimg.jpg'
 				}
 
 			$('.lugares_container').append('<article class="each_lugar" data-role="none"><a href="lugar-single.html?id='+value.ID+'" rel="external"> <img src="'+value.imagen+'" alt="'+value.titulo+'"> <div class="info_container"> <h3>'+value.titulo+'</h3> </div> </a> </article>'); });
 		});
 		return;
-	}console.log('no entro');
+	}
+console.log('not logged, no favorites for you');
 
-
+});
 })(jQuery);
-
 </script>
-		
 
-		</div><!-- page -->
+		</div><!-- data-role page -->
 		
 	</body>
 </html>

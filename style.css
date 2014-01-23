@@ -113,8 +113,8 @@ body {
 
 /*General*/
 a{text-decoration: none; color: inherit!important;}
-header.logo_home{width: 90%; height: auto; margin: 7em auto 2em auto;}
-header.logo_home img{width: 100%; height: auto; margin: 0;}
+.logo_home{width: 90%; height: auto; margin: 7em auto 2em auto;}
+.logo_home img{width: 100%; height: auto; margin: 0;}
 
 [data-role=footer],
 [data-role=header]{ width: 100%; z-index: 999; position: fixed;}
@@ -122,11 +122,15 @@ header.logo_home img{width: 100%; height: auto; margin: 0;}
 [data-role=content]{padding: 55px 15px 70px 15px;}
 
 .overlay{position: absolute; width: 100%; height: 100%; background-color: #000; opacity: 0.4;  z-index: 1;}
+.no_background{background-color: transparent!important;border: none!important;}
 .rounded_corners_5{-webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px;}
 .margin_top_10{margin-top: 3rem;}
 
 /*Backgrounds big square buttons*/
-
+    
+    .ui-body-a .no_bg_button.ui-btn,
+    .ui-body-a .no_bg_button.ui-btn:hover{background-color: transparent; border:none; box-shadow: none;}
+    .no_bg_button.ui-btn span{color: #999999!important; font-family: 'GothamBook';}
 
     .recorridos_bg{background-color: #C0CD30!important;}
     a.ui-btn.big_square.recorridos_bg{background-image: url('images/recorridos_home.png');}
@@ -191,13 +195,13 @@ header.logo_home img{width: 100%; height: auto; margin: 0;}
     .comida_bg{background-color: #811E5F!important;}
     a.ui-btn.big_square.comida_bg{background-image: url('images/comida.png');}
 
-    .facebook_bg{background-color: #3C5A97!important;}
-    a.ui-btn.big_square.facebook_bg{background-image: url('images/facebook.png'); margin: 0 auto!important; float: none;}
-    .ui-content.register p{color: #4E4E4E; text-align: center; margin-top: 0; text-transform: none; font-size: 2rem; font-family: 'GothamBook';}
+    a.ui-btn.custom_btn.facebook_bg{height: 40px; background-image: url('images/login_fb.png'); margin: 0 auto!important; float: none; border: none; box-shadow: none; background-color: transparent;}
+    .ui-content.register p{color: #4E4E4E; text-align: center; text-transform: none; font-size: 2rem; font-family: 'GothamBook'; margin: 0 0 3rem 0;}
     .ui-content.register p.small{font-family: 'GothamMedium'; font-size: 1rem; text-transform: uppercase; margin-top: 1rem;}
 
     a.ui-btn.big_square,
-    a.ui-btn.big_square:hover {
+    a.ui-btn.big_square:hover,
+    .custom_btn, .custom_btn:hover{
         background-repeat: no-repeat!important;
         background-position: center center!important;
         background-size: contain!important;
@@ -206,7 +210,7 @@ header.logo_home img{width: 100%; height: auto; margin: 0;}
 
 /*Main Header*/
 header.the_header {border: 1px solid #E7E7E7;background: #F1F1F1;}
-header.the_header h1.ui-title{width: 92%; color: #4e4e4e; text-align: center; font-family: 'GothamBook'; font-size: 21px; font-size: 2.1rem; text-overflow: ellipsis; margin: 0.5em auto 0.2em auto; padding: 0 1.1em 0 1.8em; font-weight: 400; line-height: 1.5em;}
+header.the_header h1.ui-title{width: 89%; color: #4e4e4e; text-align: center; font-family: 'GothamBook'; font-size: 21px; font-size: 2.1rem; text-overflow: ellipsis; margin: 0.5em auto 0.2em auto; padding: 0 1.1em 0 1.2em; font-weight: 400; line-height: 1.5em;}
 
 /*Jquery mobile overrides*/
 .ui-btn span{ color: #FFF!important;}
@@ -217,6 +221,9 @@ a.ui-btn.big_square:nth-child(even){
 .menu_trigger{ display: block; width: 30px; height: 35px; padding:10px; background: url('images/menu_trigger.png') no-repeat center center; top: 8px!important; left: 13px!important; background-size: contain;}
 .open{ left: -3em!important; background: url('images/menu_trigger_white.png') no-repeat center center;}
 .ui-panel-inner{margin: 0;padding: 0;}
+
+.ui-header .favorites_trigger,
+.ui-header .favorites_trigger { height: 35px; padding:10px; background: url('images/favorites.png') no-repeat center center; top: 8px!important; right: 13px!important; width: 30px; display: block; left: initial;;}
 
 /*Content*/
 .ui-content > p{font-family: 'FjordRegular'; font-size: 16px; text-transform: none; letter-spacing: 1px; margin: 5px 0;}
@@ -288,7 +295,7 @@ section h2{font-family: 'GothamBook'; font-size: 23px; font-weight: 300; color: 
 .bottom_nav ul li.next_lugar.active{background-position: -264px -5px; background-color: black;}
 
 /*submenu*/
-.bottom_nav .submenu{display: none; position: absolute; bottom:55px; right:10px; width:18rem; overflow:visible; background-color:#EAEAEA;}
+.bottom_nav .submenu{display: none; position: absolute; bottom:55px; width:18rem; overflow:visible; background-color:#EAEAEA; right:5%;}
 .bottom_nav .submenu li{width: 33%;}
 .bottom_nav .submenu li.twitter_share{background-position: -347px -62px;}
 .bottom_nav .submenu li.facebook_share{background-position: -418px -62px;}
