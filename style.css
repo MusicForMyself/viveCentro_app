@@ -132,6 +132,8 @@ a{text-decoration: none; color: inherit!important;}
     .ui-body-a .no_bg_button.ui-btn:hover{background-color: transparent; border:none; box-shadow: none;}
     .no_bg_button.ui-btn span{color: #999999!important; font-family: 'GothamBook';}
 
+    .ui-btn.nopadding span{height: 100%; padding: 0;}
+
     .recorridos_bg{background-color: #C0CD30!important;}
     a.ui-btn.big_square.recorridos_bg{background-image: url('images/recorridos_home.png');}
 
