@@ -29,9 +29,7 @@
     <preference name="android-maxSdkVersion" value="15" />
     <preference name="android-targetSdkVersion" value="15" />
     <preference name="android-installLocation" value="auto" />
-    <feature name="Notification">
-        <param name="android-package" value="org.apache.cordova.dialogs.Notification" />
-    </feature>
+    
     <icon src="icon.png" />
     <icon gap:density="ldpi" gap:platform="android" src="res/icon/android/icon-36-ldpi.png" />
     <icon gap:density="mdpi" gap:platform="android" src="res/icon/android/icon-48-mdpi.png" />
