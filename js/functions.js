@@ -56,16 +56,14 @@
 			}
 				
 				
-			
+
 			$('#menu_panel').on('panelbeforeopen', function(e,u){
-				console.log('before open');
 				e.preventDefault();
 				$('.menu_trigger').addClass('open');
 				$('.the_header').css('position', 'relative');
 				
 			})
 			.on('panelbeforeclose', function(e,u){
-				console.log('before close');
 				e.preventDefault();
 				$('.the_header').css('position', 'fixed');
 				$('.menu_trigger').removeClass('open');
@@ -116,7 +114,10 @@
 				navigator.notification.alert('Necesitas estas conectado a Facebook para agregar a favoritos');
 				
 			});
-			console.log('termino la carga del functions');
+
+
+			
+
 
 		});
 
