@@ -91,14 +91,21 @@
 <script>
 
 (function ($){
-	
+	function getUrlVars() {
+	    var vars = {};
+	    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+	        vars[key] = value;
+	    });
+	    return vars;
+	}
+
 	var id  = getUrlVars()["id"];
-	var storage = window.localStorage;
+	
 
 	$.getJSON('http://viveelcentro.mx/feed-single/?id='+id, function(data){
 			if( !data ) location.reload();
 		$.each(data, function(key, value){
-
+			var storage = window.localStorage;
 			if( value.imagenes == 'http://viveelcentro.mx/wp-includes/images/crystal/default.png' ){
 				value.imagenes = 'images/noimg.jpg'
 			}
@@ -109,6 +116,8 @@
 				'<img src="'+value.imagenes+'" alt="'+value.autor+'"> <div class="info_container"> <h3>'+value.titulo+'</h3> <h4>'+value.autor+'</h4> <p>'+value.contenido+'</p> </div>'); 
 
 			lugares_array = value.lugares;
+			// console.log(value.lugares[0].ID);
+			
 			lugares_array_JSON = JSON.stringify( lugares_array );
 			storage.setItem('this_post_id', this_recorrido);
 			
@@ -123,9 +132,9 @@
 				title     = this_object.lugar;
 				lugar_id  = this_object.ID;
 
-				var title_parts = title.split("<!--:-->");
+				// var title_parts = title.split("<!--:-->");
 
-				title = title_parts[1].substring(10);
+				// title = title_parts[1].substring(10);
 
 				if( image_url == 'http://viveelcentro.mx/wp-includes/images/crystal/default.png' ){
 					image_url = 'images/noimg.jpg'

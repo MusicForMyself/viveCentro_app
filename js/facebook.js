@@ -21,7 +21,8 @@
 		Settings: {
 			auth_public: 'zHi7M-0mUv5Pe9kN6SV_hifGj6g'
 		},
-		storage: window.localStorage
+		storage: window.localStorage,
+		home_url: 'home.html'
 	};
 
 
@@ -35,16 +36,35 @@
 	 * @return {Boolean} Returns true on success
 	 */
 	FB_util.loginFacebookUser = function () {
-
-		console.log('entro al loginFacebookUser');
 		
 		OAuth.popup('facebook', function(error, result) {
 			if( error ){
-				save_not_logged();
+				FB_util.save_not_logged();
 				return false;
 			}
-			FB_util.save_logged_data( result.id );
+			console.log(FB_util.getUser());
+			FB_util.save_logged_data( FB_util.getUser() );
 			return true;
+		});	
+	};
+
+	/**
+	 * Checks if the user has authorized the app and is logged in 
+	 * then it redirects to a URL
+	 *
+	 * @method checkLogin
+	 * @param {String} url Callback url
+	 * @param {Boolean} [force=false] Force login to redirect
+	 * @return {Boolean} Returns true on success
+	 */
+	FB_util.getUser = function () {
+		
+		OAuth.callback('facebook', function(error, result) {
+			result.get('/me').done(function(data) {
+				console.log(data);
+				return data;
+			});
+			
 		});	
 	};
 
@@ -56,6 +76,7 @@
 	 */
 	FB_util.save_logged_data = function(user_id){
 		FB_util.storage.setItem('fb_login_id', user_id);
+		FB_util.checkLogin( FB_util.home_url, false);
 	}
 
 	/**
@@ -65,6 +86,7 @@
 	 */
 	FB_util.save_not_logged = function(){
 		FB_util.storage.setItem('fb_login_id', 'not_logged');
+		FB_util.checkLogin( FB_util.home_url, false);
 	}
 
 
@@ -98,7 +120,7 @@
 	FB_util.init = function () {
 		console.log('Inicializando Oauth');
 		OAuth.initialize(FB_util.Settings.auth_public);
-		FB_util.checkLogin('home.html', false)
+		FB_util.checkLogin( FB_util.home_url, false)
 	};
 
 	//Initiate this stuff when device is ready
