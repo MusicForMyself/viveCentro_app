@@ -21,13 +21,6 @@
 	</head>
 	<body>
 		<div data-role="page">
-		<!-- Load this page scripts -->
-		<script type="text/javascript" src="cordova.js"></script>
-		<script type="text/javascript" src="phonegap.js"></script>
-		<script type="text/javascript" src="js/index.js"></script>
-
-		<script type="text/javascript" src="js/plugins.js"></script>
-		<script type="text/javascript" src="js/functions.js"></script>
 			
 		<div data-role="panel" class="menu_panel" id="menu_panel" data-position="left" data-display="push">
 
@@ -53,7 +46,7 @@
 			<header class="the_header" data-role="header" data-position="fixed" data-visible-on-page-show="false" data--tap-toggle="false">
 				<a href="#menu_panel" class="menu_trigger" id="menu_trigger" data-role="none"></a>
 				<h1><a href="#" data-rel="back">Lugares</a></h1>
-				<a href="favoritos.html" class="favorites_trigger" data-role="none"></a>
+				<a href="favoritos.html" class="favorites_trigger only_users" data-role="none"></a>
 			</header><!-- logo_home -->
 
 			<section data-role="content">
@@ -77,7 +70,7 @@
 				<ul>
 					<a class="prev_lugar_link" href="" rel="external"><li class="prev_lugar">anterior</li></a>
 					<a class="next_lugar_link" href="" rel="external"><li class="next_lugar">siguiente</li></a>
-					<li class="favorite">favorito</li>
+					<li class="favorite only_users">favorito</li>
 					<li class="share">compartir
 						<ul class="submenu rounded_corners_5">
 							<a class="share_link_twitter" href="" target="_blank" rel="external">
@@ -94,120 +87,123 @@
 					</li>
 				</ul>
 			</nav>
+<!-- Load this page scripts -->
+<script type="text/javascript" src="cordova.js"></script>
+<script type="text/javascript" src="js/plugins.js"></script>
+<script type="text/javascript" src="js/functions.js"></script>
+
+<script>
+
+(function ($){
+	
+	function getUrlVars() {
+	    var vars = {};
+	    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+	        vars[key] = value;
+	    });
+	    return vars;
+	}
+	
+	var storage = window.localStorage;
+	var id  = getUrlVars()["id"];
+	var images_array = [];
+	var recorrido, descripcion, recorrido_format = '', descripcion_format = '', map_url;
+
+	if( typeof(getUrlVars()["recorrido"]) != 'undefined' ){
+		recorrido   = parseInt( getUrlVars()["recorrido"] );
+		recorrido_format   = '&recorrido='+recorrido;
+		descripcion = parseInt( getUrlVars()["descripcion"]);
+		descripcion_format = '&descripcion='+descripcion;
+	}
+	
+	var request_url = 'http://viveelcentro.mx/feed-single/?id='+id+recorrido_format+'&descripcion='+descripcion_format;
+	
+
+	$.getJSON( request_url, function(data){
+		
+		if( !data ) location.reload();
+		$.each(data, function(key, value){
+
+			images_array = value.galeria;
+
+			var images_html =[];
+			for( i = 0; i< images_array.length; i++ ){
+				image_url = images_array[i];
+				images_html += '<li><img src="'+image_url+'" alt=""></li>';
+			}
+
+
+		if( value.imagenes == 'http://viveelcentro.mx/wp-includes/images/crystal/default.png' ){
+		value.imagenes = 'images/noimg.jpg'
+		}
+
+		
+		var latlong   = value.latlong.replace(/ /g,''),
+			horario   = ( value.horario ) ? '<span class="horario"></span><p>'+value.horario+'</p> ' : '',
+			ubicacion = ( value.precio ) ? '<span class="costo"></span><p>'+value.precio+'</p> ' : '';
 			
-		<script>
+			map_url   = 'http://maps.googleapis.com/maps/api/staticmap?center='+latlong+'&zoom=18&size=320x220&sensor=false&markers=color:red%7Clabel:A%7C'+latlong+'&size=320x220&key=AIzaSyCPr29QS6oK1NpDbh0tcDdf98ZSxwXzSX4';
+		
+		$('.lugar_single').append('<h3>'+value.titulo+'</h3> <ul class="cycle-gallery">'+images_html+'</ul> <div class="cycle-pager"></div> <div class="info_container"> <p>'+value.contenido+'</p> '+horario+ubicacion+'<p>Zona: '+value.term[1]+'</p><a href="http://maps.apple.com/?q='+latlong+'"><img id="map_static" class="map_static" src="'+map_url+'"></a></div>'); 
 
-			(function ($){
+		// Storing current post id
+		storage.setItem('this_post_id', value.ID);
+
+		// Setting share links
+		$('.share_link_facebook').attr('href', 'https://www.facebook.com/sharer/sharer.php?u='+value.permalink );
+		$('.share_link_twitter').attr('href', 'https://twitter.com/share?url='+value.permalink+'&text='+value.titulo+'&hashtags=ViveelCentro&via=ViveelCentroDF' );
+		$('.share_link_tumblr').attr('href', 'http://tumblr.com/share/link?url='+escape(value.permalink)+'&name='+value.titulo+'&description='+value.contenido );
+
+		});
+		
+		// Init cycle
+		$('.cycle-gallery').cycle({
+			slides : 'li',
+			fx     : 'scrollHorz',
+			pager  : '.cycle-pager',
+			swipe  : true
+		});
+
+		// Print prev/next if is recorrido
+		if( recorrido ){
+			var value = JSON.parse( storage.getItem('local_lugares_array') );
+
+			// Set prev/next links
+			if ( descripcion !== 0 ) {
+				var descripcion_prev = parseInt(descripcion)-1;
+				var id_prev = value[descripcion_prev].ID;
 				
-				function getUrlVars() {
-				    var vars = {};
-				    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
-				        vars[key] = value;
-				    });
-				    return vars;
-				}
-				var storage = window.localStorage;
-				var id  = getUrlVars()["id"];
-				var images_array = [];
-				var recorrido, descripcion, recorrido_format = '', descripcion_format = '', map_url;
+				var url_prev = 'lugar-single.html?id='+id_prev+'&recorrido='+recorrido+'&descripcion='+descripcion_prev;
+				$('.prev_lugar_link').attr('href', url_prev);
 
-				if( typeof(getUrlVars()["recorrido"]) != 'undefined' ){
-					recorrido   = parseInt( getUrlVars()["recorrido"] );
-					recorrido_format   = '&recorrido='+recorrido;
-					descripcion = parseInt( getUrlVars()["descripcion"]);
-					descripcion_format = '&descripcion='+descripcion;
-				}
-				
-				var request_url = 'http://viveelcentro.mx/feed-single/?id='+id+recorrido_format+descripcion_format;
-				
+			}else{
+				$('.prev_lugar').addClass('ui-disabled');
+			} 
 
-				$.getJSON( request_url, function(data){
-					
-					if( !data ) location.reload();
-					$.each(data, function(key, value){
+			if ( descripcion !== value.length-1 ) {
+				var descripcion_next = parseInt(descripcion)+1;
+				var id_next          = value[descripcion_next].ID;
 
-						images_array = value.galeria;
+				var url_next = 'lugar-single.html?id='+id_next+'&recorrido='+recorrido+'&descripcion='+descripcion_next;
+				$('.next_lugar_link').attr('href', url_next);
 
-						var images_html =[];
-						for( i = 0; i< images_array.length; i++ ){
-							image_url = images_array[i];
-							images_html += '<li><img src="'+image_url+'" alt=""></li>';
-						}
-
-
-					if( value.imagenes == 'http://viveelcentro.mx/wp-includes/images/crystal/default.png' ){
-					value.imagenes = 'images/noimg.jpg'
-					}
-
-					
-					var latlong   = value.latlong.replace(/ /g,''),
-						horario   = ( value.horario ) ? '<span class="horario"></span><p>'+value.horario+'</p> ' : '',
-						ubicacion = ( value.precio ) ? '<span class="costo"></span><p>'+value.precio+'</p> ' : '';
-						
-						map_url   = 'http://maps.googleapis.com/maps/api/staticmap?center='+latlong+'&zoom=18&size=320x220&sensor=false&markers=color:red%7Clabel:A%7C'+latlong+'&size=320x220&key=AIzaSyCPr29QS6oK1NpDbh0tcDdf98ZSxwXzSX4';
-					
-					$('.lugar_single').append('<h3>'+value.titulo+'</h3> <ul class="cycle-gallery">'+images_html+'</ul> <div class="cycle-pager"></div> <div class="info_container"> <p>'+value.contenido+'</p> '+horario+ubicacion+'<p>Zona: '+value.term[1]+'</p><a href="http://maps.apple.com/?q='+latlong+'"><img id="map_static" class="map_static" src="'+map_url+'"></a></div>'); 
-
-					// Storing current post id
-					storage.setItem('this_post_id', value.ID);
-
-					// Setting share links
-					$('.share_link_facebook').attr('href', 'https://www.facebook.com/sharer/sharer.php?u='+value.permalink );
-					$('.share_link_twitter').attr('href', 'https://twitter.com/share?url='+value.permalink+'&text='+value.titulo+'&hashtags=ViveelCentro&via=ViveelCentroDF' );
-					$('.share_link_tumblr').attr('href', 'http://tumblr.com/share/link?url='+escape(value.permalink)+'&name='+value.titulo+'&description='+value.contenido );
-
-					});
-					
-					// Init cycle
-					$('.cycle-gallery').cycle({
-						slides : 'li',
-						fx     : 'scrollHorz',
-						pager  : '.cycle-pager',
-						swipe  : true
-					});
-
-					// Print prev/next if is recorrido
-					if( recorrido ){
-						var value = JSON.parse( storage.getItem('local_lugares_array') );
-
-						// Set prev/next links
-						if ( descripcion !== 0 ) {
-							var descripcion_prev = parseInt(descripcion)-1;
-							var id_prev = value[descripcion_prev].ID;
-							
-							var url_prev = 'lugar-single.html?id='+id_prev+'&recorrido='+recorrido+'&descripcion='+descripcion_prev;
-							$('.prev_lugar_link').attr('href', url_prev);
-
-						}else{
-							$('.prev_lugar').addClass('ui-disabled');
-						} 
-
-						if ( descripcion !== value.length-1 ) {
-							var descripcion_next = parseInt(descripcion)+1;
-							var id_next          = value[descripcion_next].ID;
-
-							var url_next = 'lugar-single.html?id='+id_next+'&recorrido='+recorrido+'&descripcion='+descripcion_next;
-							$('.next_lugar_link').attr('href', url_next);
-
-						}else{
-							$('.next_lugar').addClass('ui-disabled');
-						} 
-						$('.prev_lugar').css('display', 'block');
-						$('.next_lugar').css('visibility', 'visible');
-						
-						return;
-					}
-					$('.bottom_nav .submenu').css('right', '25%');
-					
-
-
-					
-				});
-
-				
-			})(jQuery);
+			}else{
+				$('.next_lugar').addClass('ui-disabled');
+			} 
+			$('.prev_lugar').css('display', 'block');
+			$('.next_lugar').css('visibility', 'visible');
 			
-		</script>
+			return;
+		}
+		$('.bottom_nav .submenu').css('right', '25%');
+		
+	});
+
+	
+})(jQuery);
+			
+</script>	
+
 		</div> <!-- data-role page -->
 
 

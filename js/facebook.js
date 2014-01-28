@@ -7,10 +7,10 @@
 
 	Author: John Falcon
 	Description: Helper library to achieve Facebook login with Oauth.io
+	Version: 0.0.1
 	Requires: oauth.js
 
  **************************************************/
-
 
 
 (function($){
@@ -36,6 +36,7 @@
 	FB_util.getUser = function () {
 		
 		OAuth.popup('facebook', function(error, result) {
+			
 			if( error ) {
 				console.log('Hubo un error');
 				return false;
@@ -51,7 +52,6 @@
 			
 		});	
 	};
-
 
 	/**
 	 * Opens dialog to login user 
@@ -71,7 +71,6 @@
 			return true;
 		});	
 	};
-
 
 	/**
 	 * Saves the user_id after a facebook login
@@ -93,7 +92,6 @@
 		FB_util.storage.setItem('fb_login_id', 'not_logged');
 		FB_util.checkLogin( FB_util.home_url, false);
 	}
-
 
 	/**
 	 * Checks if the user has authorized the app and is logged in 

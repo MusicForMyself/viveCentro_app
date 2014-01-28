@@ -45,7 +45,7 @@
 			<header class="the_header" data-role="header" data-position="fixed" data-visible-on-page-show="false" data--tap-toggle="false">
 				<a href="#menu_panel" class="menu_trigger" id="menu_trigger" data-role="none"></a>
 				<h1><a href="#">Recorridos</a></h1>
-				<a href="favoritos.html" class="favorites_trigger" data-role="none"></a>
+				<a href="favoritos.html" class="favorites_trigger only_users" data-role="none"></a>
 			</header><!-- logo_home -->
 
 			<section data-role="content">
@@ -75,92 +75,91 @@
 
 <!-- Load this page scripts -->
 <script type="text/javascript" src="cordova.js"></script>
-
 <script type="text/javascript" src="js/plugins.js"></script>
 <script type="text/javascript" src="js/functions.js"></script>
 
 <script>
 
-	(function ($){
+(function ($){
+	
+	function getUrlVars() {
+	    var vars = {};
+	    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+	        vars[key] = value;
+	    });
+	    return vars;
+	}
+
+	var id  = getUrlVars()["id"];
+
+	$.getJSON('http://viveelcentro.mx/feed-recorrido/?id='+id, function(data){
+
+		if( !data ) location.reload();
+
+		var coordinates = {
+			mid_points : data.puntos_medios,
+			start      : data.inicio,
+			end        : data.destino
+		};
+
+		// console.dir(coordinates);
+		initialize( coordinates );
+
+
+	});
+
+	var directionsDisplay;
+	var directionsService = new google.maps.DirectionsService();
+	var map;
+
+
+	function initialize( coordinates ) {
 		
-		function getUrlVars() {
-		    var vars = {};
-		    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
-		        vars[key] = value;
-		    });
-		    return vars;
+		directionsDisplay = new google.maps.DirectionsRenderer();
+		var mapOptions = {
+			zoom: 17,
+			mapTypeId: google.maps.MapTypeId.ROADMAP
 		}
+		map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+		directionsDisplay.setMap(map);
 
-		var id  = getUrlVars()["id"];
+		calcRoute( coordinates );
+	}
 
-		$.getJSON('http://viveelcentro.mx/feed-recorrido/?id='+id, function(data){
 
-			if( !data ) location.reload();
+	function calcRoute( coordinates ) {
+		
+		var start  = new google.maps.LatLng(coordinates.start.lat, coordinates.start.long);
+		var end    = new google.maps.LatLng(coordinates.end.lat, coordinates.end.long);
 
-			var coordinates = {
-				mid_points : data.puntos_medios,
-				start      : data.inicio,
-				end        : data.destino
+
+		var waypts = $.map(coordinates.mid_points, function(place, index){
+			return { 
+				location: new google.maps.LatLng( place.lat, place.long),
+				stopover: true
 			};
-
-			// console.dir(coordinates);
-			initialize( coordinates );
-
-
 		});
-
-		var directionsDisplay;
-		var directionsService = new google.maps.DirectionsService();
-		var map;
-
-
-		function initialize( coordinates ) {
-			
-			directionsDisplay = new google.maps.DirectionsRenderer();
-			var mapOptions = {
-				zoom: 17,
-				mapTypeId: google.maps.MapTypeId.ROADMAP
-			}
-			map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-			directionsDisplay.setMap(map);
-
-			calcRoute( coordinates );
-		}
 	
 
-		function calcRoute( coordinates ) {
-			
-			var start  = new google.maps.LatLng(coordinates.start.lat, coordinates.start.long);
-			var end    = new google.maps.LatLng(coordinates.end.lat, coordinates.end.long);
-
-
-			var waypts = $.map(coordinates.mid_points, function(place, index){
-				return { 
-					location: new google.maps.LatLng( place.lat, place.long),
-					stopover: true
-				};
-			});
 		
-
-			
-			
-			var request = {
-				origin            : start,
-				destination       : end,
-				waypoints         : waypts,
-				optimizeWaypoints : true,
-				travelMode        : google.maps.TravelMode.WALKING
-			};
-
-			directionsService.route(request, function(response, status) {
-				if (status == google.maps.DirectionsStatus.OK) {
-					directionsDisplay.setDirections(response);
-				}
-			});
-		}
 		
+		var request = {
+			origin            : start,
+			destination       : end,
+			waypoints         : waypts,
+			optimizeWaypoints : true,
+			travelMode        : google.maps.TravelMode.WALKING
+		};
 
-	})(jQuery);
+		directionsService.route(request, function(response, status) {
+			if (status == google.maps.DirectionsStatus.OK) {
+				directionsDisplay.setDirections(response);
+			}
+		});
+	}
+	
+
+})(jQuery);
 
 </script>
 
