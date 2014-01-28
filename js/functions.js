@@ -83,13 +83,11 @@
 
 			// Login with facebook events
 			$('#login_fb').on('click', function(){
-				vivecentroFB.loginFacebookUser();
-				// goHome();
+				FB_util.loginFacebookUser();
 			});
 
 			$('#not_login_fb').on('click', function(){
-				vivecentroFB.save_not_logged();
-				goHome();
+				FB_util.save_not_logged();
 			});
 
 			// Favorite stuff
@@ -123,8 +121,6 @@
 
 			
 	});
-
-	
 	
 
 })(jQuery);
