@@ -19,20 +19,44 @@
 
 	window.FB_util = {
 		Settings: {
-			auth_public: 'zHi7M-0mUv5Pe9kN6SV_hifGj6g'
+			auth_public: encodeURI('zHi7M-0mUv5Pe9kN6SV_hifGj6g'),
+			user_id: '',
+			profile_name: ''
 		},
 		storage: window.localStorage,
 		home_url: 'home.html'
 	};
 
+	/**
+	 * Get user public profile and user_id
+	 *
+	 * @method getUser
+	 * @return {Boolean} Returns true on success
+	 */
+	FB_util.getUser = function () {
+		
+		OAuth.popup('facebook', function(error, result) {
+			if( error ) {
+				console.log('Hubo un error');
+				return false;
+			}
+			
+			result.get('/me').done(function(data) {
+				FB_util.Settings.user_id = data.id;
+				FB_util.Settings.profile_name = data.username;
+				console.log(data.id);
+				FB_util.save_logged_data();
+				return true;
+			});
+			
+		});	
+	};
+
 
 	/**
-	 * Checks if the user has authorized the app and is logged in 
-	 * then it redirects to a URL
+	 * Opens dialog to login user 
 	 *
-	 * @method checkLogin
-	 * @param {String} url Callback url
-	 * @param {Boolean} [force=false] Force login to redirect
+	 * @method loginFacebookUser
 	 * @return {Boolean} Returns true on success
 	 */
 	FB_util.loginFacebookUser = function () {
@@ -42,31 +66,12 @@
 				FB_util.save_not_logged();
 				return false;
 			}
-			console.log(FB_util.getUser());
-			FB_util.save_logged_data( FB_util.getUser() );
+			FB_util.getUser();
+			// FB_util.save_logged_data();  
 			return true;
 		});	
 	};
 
-	/**
-	 * Checks if the user has authorized the app and is logged in 
-	 * then it redirects to a URL
-	 *
-	 * @method checkLogin
-	 * @param {String} url Callback url
-	 * @param {Boolean} [force=false] Force login to redirect
-	 * @return {Boolean} Returns true on success
-	 */
-	FB_util.getUser = function () {
-		
-		OAuth.callback('facebook', function(error, result) {
-			result.get('/me').done(function(data) {
-				console.log(data);
-				return data;
-			});
-			
-		});	
-	};
 
 	/**
 	 * Saves the user_id after a facebook login
@@ -74,8 +79,8 @@
 	 * @method save_logged_data
 	 * @param {Int} useR_id Facebook User ID
 	 */
-	FB_util.save_logged_data = function(user_id){
-		FB_util.storage.setItem('fb_login_id', user_id);
+	FB_util.save_logged_data = function(){
+		FB_util.storage.setItem('fb_login_id', FB_util.Settings.user_id);
 		FB_util.checkLogin( FB_util.home_url, false);
 	}
 
