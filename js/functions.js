@@ -206,7 +206,11 @@
 				$("html, body").animate({ scrollTop : '0px' }, 'fast');
 				$('html, body').on( "touchmove", false);
 				$('.menu_trigger').addClass('open');
-				$('.the_header').css('position', 'relative');
+				$('.the_header').css({
+					'position' : 'relative',
+					'top' : 0,
+					'left' : 0,
+				});
 				
 			})
 			.on('panelbeforeclose', function(e,u){

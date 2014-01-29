@@ -63,6 +63,28 @@
 
 			</section><!-- content -->
 
+			<nav class="bottom_nav" data-role="footer"  data-position="fixed" data-visible-on-page-show="false" data--tap-toggle="false">
+				<ul>
+					<a class="prev_lugar_link" href="" rel="external"><li class="prev_lugar">anterior</li></a>
+					<a class="next_lugar_link" href="" rel="external"><li class="next_lugar">siguiente</li></a>
+					<li class="favorite only_users">favorito</li>
+					<li class="share">compartir
+						<ul class="submenu rounded_corners_5">
+							<a class="share_link_twitter" href="" target="_blank" rel="external">
+								<li class="twitter_share"></li>
+							</a>
+							<a class="share_link_facebook" href="" target="_blank" rel="external">
+								<li class="facebook_share"></li>
+							</a>
+							<a class="share_link_tumblr" href="" target="_blank" rel="external">
+								<li class="tumblr_share"></li>
+							</a>
+							<div class="little_triangle"></div>
+						</ul>
+					</li>
+				</ul>
+			</nav>
+
 <!-- Load this page scripts -->
 <script type="text/javascript" src="cordova.js"></script>
 <script type="text/javascript" src="js/functions.js"></script>
@@ -72,22 +94,30 @@
 	
 	$(document).ready( function(){
 
-		var id  = getUrlVars()["ID"];
+		var id          = getUrlVars()["id"];
 		var request_url = 'http://viveelcentro.mx/feed-single/?id='+id;
+		var storage     = window.localStorage;
 
 		$.getJSON( request_url, function(data){
 			if( !data ) location.reload();
 			$.each(data, function(key, value){
 				
-			if( value.imagenes == 'http://viveelcentro.mx/wp-includes/images/crystal/default.png' ){
+				if( value.imagenes == 'http://viveelcentro.mx/wp-includes/images/crystal/default.png' ){
 
-				value.imagenes = 'images/noimg.jpg'
-			}
+					value.imagenes = 'images/noimg.jpg'
+				}
+				console.log(value);
+				// Storing current post id
+				storage.setItem('this_post_id', value.ID);
+				var latlong = value.latlong.replace(/ /g,'');
 
-			var latlong = value.latlong.replace(/ /g,'');
+				$('.lugar_single').append('<h3>'+value.titulo+'</h3> <div class="info_container"> <img class="actividades_img" src="'+value.imagenes+'" ><p>'+value.contenido+'</p> </div>'); 
 
-			$('.lugar_single').append('<h3>'+value.titulo+'</h3> <div class="info_container"> <img class="actividades_img" src="'+value.imagenes+'" ><p>'+value.contenido+'</p> </div>'); 
-					
+				// Setting share links
+				$('.share_link_facebook').attr('href', 'https://www.facebook.com/sharer/sharer.php?u='+value.permalink );
+				$('.share_link_twitter').attr('href', 'https://twitter.com/share?url='+value.permalink+'&text='+value.titulo+'&hashtags=ViveelCentro&via=ViveelCentroDF' );
+				$('.share_link_tumblr').attr('href', 'http://tumblr.com/share/link?url='+escape(value.permalink)+'&name='+value.titulo+'&description='+value.contenido );
+						
 			});
 
 		});

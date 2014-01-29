@@ -102,66 +102,67 @@
 
 	$(document).ready(function(){
 
-		id  = getUrlVars()["id"];
+		id    = getUrlVars()["id"];
 
 		$.getJSON('http://viveelcentro.mx/feed-single/?id='+id, function(data){
 			if( !data ) location.reload();
-			console.log(data);
-		$.each(data, function(key, value){
-
-			var storage = window.localStorage;
-			if( value.imagenes == 'http://viveelcentro.mx/wp-includes/images/crystal/default.png' ){
-				value.imagenes = 'images/noimg.jpg'
-			}
-
-			$('.map_link').attr( 'href', 'map.html?id='+value.ID );
-			//Content Recorrido
-			$('.recorrido_single').append(
-				'<img src="'+value.imagenes+'" alt="'+value.autor+'"> <div class="info_container"> <h3>'+value.titulo+'</h3> <h4>'+value.autor+'</h4> <p>'+value.contenido+'</p> </div>'); 
-
-			lugares_array = value.lugares;
-			// console.log(value.lugares[0].ID);
 			
-			lugares_array_JSON = JSON.stringify( lugares_array );
-			storage.setItem('this_post_id', this_recorrido);
+			$.each(data, function(key, value){
 
-			// Setting share links
-			$('.share_link_facebook').attr('href', 'https://www.facebook.com/sharer/sharer.php?u='+value.permalink );
-			$('.share_link_twitter').attr('href', 'https://twitter.com/share?url='+value.permalink+'&text=Recorrido: '+value.titulo+'&hashtags=ViveelCentro&via=ViveelCentroDF' );
-			$('.share_link_tumblr').attr('href', 'http://tumblr.com/share/link?url='+escape(value.permalink)+'&name=Recorrido: '+value.titulo+'&description='+value.contenido );
-
-			
-			var lugares_html =[];
-
-			for( i = 0; i< lugares_array.length; i++ ){
-
-
-				this_object = lugares_array[i];
-
-				image_url = this_object.imagen_lugar;
-				title     = this_object.lugar;
-				lugar_id  = this_object.ID;
-
-				// var title_parts = title.split("<!--:-->");
-
-				// title = title_parts[1].substring(10);
-
-				if( image_url == 'http://viveelcentro.mx/wp-includes/images/crystal/default.png' ){
-					image_url = 'images/noimg.jpg'
+				var storage = window.localStorage;
+				if( value.imagenes == 'http://viveelcentro.mx/wp-includes/images/crystal/default.png' ){
+					value.imagenes = 'images/noimg.jpg'
 				}
-				var this_recorrido = value.ID,
-					this_descripcion = i;
 
-				lugares_html += '<article class="each_lugar" data-role="none"> <a href="lugar-single.html?id='+lugar_id+'&recorrido='+this_recorrido+'&descripcion='+this_descripcion+'" rel="external"> <img src="'+image_url+'" alt="'+title+'"> <div class="info_container"> <h3>'+title+'</h3></div></a></article>';
-			}
+				$('.map_link').attr( 'href', 'map.html?id='+value.ID );
+				//Content Recorrido
+				$('.recorrido_single').append(
+					'<img src="'+value.imagenes+'" alt="'+value.autor+'"> <div class="info_container"> <h3>'+value.titulo+'</h3> <h4>'+value.autor+'</h4> <p>'+value.contenido+'</p> </div>'); 
 
-			//Lugares del recorrido
-			$('.lugares_container').append( lugares_html ); 
-			var storage = window.localStorage;
+				lugares_array = value.lugares;
+				// console.log(value.lugares[0].ID);
+				
+				lugares_array_JSON = JSON.stringify( lugares_array );
+				
 
-			storage.removeItem('local_lugares_array' );
-			storage.setItem('local_lugares_array', lugares_array_JSON );
-		});
+				// Setting share links
+				$('.share_link_facebook').attr('href', 'https://www.facebook.com/sharer/sharer.php?u='+value.permalink );
+				$('.share_link_twitter').attr('href', 'https://twitter.com/share?url='+value.permalink+'&text=Recorrido: '+value.titulo+'&hashtags=ViveelCentro&via=ViveelCentroDF' );
+				$('.share_link_tumblr').attr('href', 'http://tumblr.com/share/link?url='+escape(value.permalink)+'&name=Recorrido: '+value.titulo+'&description='+value.contenido );
+
+				
+				var lugares_html =[];
+
+				for( i = 0; i< lugares_array.length; i++ ){
+
+
+					this_object = lugares_array[i];
+
+					image_url = this_object.imagen_lugar;
+					title     = this_object.lugar;
+					lugar_id  = this_object.ID;
+
+					// var title_parts = title.split("<!--:-->");
+
+					// title = title_parts[1].substring(10);
+
+					if( image_url == 'http://viveelcentro.mx/wp-includes/images/crystal/default.png' ){
+						image_url = 'images/noimg.jpg'
+					}
+					var this_recorrido = value.ID,
+						this_descripcion = i;
+					storage.setItem('this_post_id', this_recorrido);
+
+					lugares_html += '<article class="each_lugar" data-role="none"> <a href="lugar-single.html?id='+lugar_id+'&recorrido='+this_recorrido+'&descripcion='+this_descripcion+'" rel="external"> <img src="'+image_url+'" alt="'+title+'"> <div class="info_container"> <h3>'+title+'</h3></div></a></article>';
+				}
+
+				//Lugares del recorrido
+				$('.lugares_container').append( lugares_html ); 
+				var storage = window.localStorage;
+
+				storage.removeItem('local_lugares_array' );
+				storage.setItem('local_lugares_array', lugares_array_JSON );
+			});
 	});
 	});
 	
