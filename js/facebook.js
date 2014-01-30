@@ -60,8 +60,12 @@
 	 * @return {Boolean} Returns true on success
 	 */
 	FB_util.loginFacebookUser = function () {
-		
-		OAuth.popup('facebook', function(error, result) {
+
+		// var ref = window.open('http://apache.org', '_blank', 'location=yes');
+		// OAuth.redirect('facebook', '/android_assets/www/home.html');
+		// OAuth.callback('facebook', function(){alert('Regreso del callback');})
+		OAuth.popup('facebook', {authorize:{display:"touch"}}, function(error, result) {
+			
 			if( error ){
 				FB_util.save_not_logged();
 				return false;

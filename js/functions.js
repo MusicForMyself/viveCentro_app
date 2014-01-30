@@ -186,6 +186,12 @@
 				
 			});
 
+			$('.share_click').on('click', function(e){
+				e.preventDefault();
+				var ref = window.open( $(this).attr('href'), '_blank', 'location=yes');
+				
+			});
+
 			/**
 			 * Cycle init
 			 */
@@ -207,7 +213,7 @@
 				$('html, body').on( "touchmove", false);
 				$('.menu_trigger').addClass('open');
 				$('.the_header').css({
-					'position' : 'relative',
+					'position' : 'absolute',
 					'top' : 0,
 					'left' : 0,
 				});
